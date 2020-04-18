@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://182.92.166.86/corpus
+    url: jdbc:mysql://182.92.166.86:3306/corpus
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
