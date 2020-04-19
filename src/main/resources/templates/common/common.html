@@ -5,6 +5,7 @@
     <title>Common Fragment</title>
 </head>
 <body>
+<!--顶部导航栏-->
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="navbar">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#" th:text="${session.loginUser}"> Username </a>
     <input class="form-control form-control-dark w-100" type="text" placeholder="综合搜索" aria-label="Search">
@@ -14,7 +15,7 @@
         </li>
     </ul>
 </nav>
-
+<!--侧边导航栏-->
 <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
@@ -153,5 +154,66 @@
         </ul>
     </div>
 </nav>
+<!--韵书韵图数据表格头-->
+<thead th:fragment="yunshuThead">
+    <tr>
+        <th></th>
+        <th></th>
+        <th>HBZXJY</th>
+        <th>YYP</th>
+        <th>WFYY1</th>
+        <th>WFYY2</th>
+        <th>ZAYW</th>
+        <th>XSYX</th>
+        <th>YYCW</th>
+        <th>HZTY</th>
+        <th>LSYJ</th>
+        <th>YF</th>
+        <th>YL</th>
+        <th>YYFY</th>
+        <th>NBFY</th>
+        <th>JYZH</th>
+        <th>GJDZ</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>徐孝、张元善</th>
+        <th>乔中和</th>
+        <th>樊腾凤</th>
+        <th>年希尧</th>
+        <th>赵绍箕</th>
+        <th>释阿摩利谛</th>
+        <th>李光地、王兰生</th>
+        <th>都四德</th>
+        <th>李汝珍</th>
+        <th>徐鉴</th>
+        <th>华长忠</th>
+        <th>裕恩</th>
+        <th>夏鸾翔</th>
+        <th>王璞</th>
+        <th>王璞</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>單字</th>
+        <th>1602</th>
+        <th>1611</th>
+        <th>1661-1670</th>
+        <th>1711</th>
+        <th>1674</th>
+        <th>1699-1704</th>
+        <th>1726</th>
+        <th>乾隆晚年</th>
+        <th>1805</th>
+        <th>1817</th>
+        <th>1805-1858</th>
+        <th>1840</th>
+        <th>1863</th>
+        <th>1912</th>
+        <th>1921</th>
+    </tr>
+</thead>
+
 </body>
 </html>

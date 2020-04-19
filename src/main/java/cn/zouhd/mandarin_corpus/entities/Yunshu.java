@@ -14,13 +14,9 @@ public class Yunshu {
 
     @Id
     private Integer id;
-    @Column
     private String character;
-    @Column
     private String y1602;
-    @Column
     private String y1611;
-    @Column
     private String y1661t1670;
     @Column
     private String y1711;
@@ -40,8 +36,8 @@ public class Yunshu {
     private String y1805t1858;
     @Column
     private String y1840;
-    @Column
     private String y1863;
-    @Column
     private String y1912;
+    private String y1921;
+
 }
