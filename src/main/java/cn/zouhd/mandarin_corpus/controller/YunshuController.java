@@ -52,7 +52,7 @@ public class YunshuController {
         }
 //        不是数字ID则搜索字符
         String searchLike = "%" + yunshuSearch + "%";
-        List<Yunshu> results = yunshuRepo.findByCharacterLike((String) searchLike);
+        List<Yunshu> results = yunshuRepo.findByWordLike((String) searchLike);
         if (results == null || results.size() == 0){
             model.addAttribute("msg", "查询不到结果");
             return "yunshu/yunshu";

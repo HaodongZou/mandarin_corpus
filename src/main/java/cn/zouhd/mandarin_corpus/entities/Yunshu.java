@@ -14,7 +14,7 @@ public class Yunshu {
 
     @Id
     private Integer id;
-    private String character;
+    private String word;
     private String y1602;
     private String y1611;
     private String y1661t1670;

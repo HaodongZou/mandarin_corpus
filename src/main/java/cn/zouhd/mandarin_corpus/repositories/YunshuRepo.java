@@ -19,6 +19,6 @@ public interface YunshuRepo extends JpaRepository<Yunshu, Integer> {
      * @param character the character
      * @return the list
      */
-    List<Yunshu> findByCharacterLike(String character);
+    List<Yunshu> findByWordLike(String character);
 
 }

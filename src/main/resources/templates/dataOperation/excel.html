@@ -7,7 +7,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>找不到页面</title>
+		<title>Excel表格</title>
 		<!-- Bootstrap core CSS -->
 		<link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
 
@@ -49,7 +49,22 @@
 				<div th:replace="common/common :: sidebar"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h1>404</h1>
+					<h2> 导入Excel表格 </h2>
+					<br>
+					<p><strong>请注意，上传的文件支持.xls和.xlsx两种格式。</strong>建议下载模板文件后，将数据复制入模板文件中再进行上传。</p>
+
+					<form action="#" th:action="@{/excel/import}" enctype="multipart/form-data" method="post">
+						<div class="input-group">
+							<div class="custom-file">
+								<input onchange="showFilename(this.files[0])" type="file" class="custom-file-input"
+									   id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+								<label id="filename_label" class="custom-file-label" for="inputGroupFile04">选择要上传的文件</label>
+							</div>
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">上传</button>
+							</div>
+						</div>
+					</form>
 				</main>
 			</div>
 		</div>
@@ -70,6 +85,14 @@
 		<!-- Graphs -->
 		<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
 
+
+
+		<!-- 显示文件名 -->
+		<script>
+			function showFilename(file){
+				$("#filename_label").html(file.name);
+			}
+		</script>
 	</body>
 
 </html>
