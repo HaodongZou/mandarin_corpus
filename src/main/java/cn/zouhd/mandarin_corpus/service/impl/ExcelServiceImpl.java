@@ -8,6 +8,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,7 @@ public class ExcelServiceImpl implements ExcelService {
     @Autowired
     YunshuRepo yunshuRepo;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -37,6 +40,7 @@ public class ExcelServiceImpl implements ExcelService {
             isExcel2003 = true;
         }
         else if (!filename.matches("^.+\\.(?i)(xlsx)$")){
+            logger.warn("提交的文件：" + filename + " 不是一个Excel格式的文件");
             throw new MyExcetpion("上传的不是.xls或.xlsx文件");
         }
 
@@ -51,7 +55,6 @@ public class ExcelServiceImpl implements ExcelService {
         //判断是否为空表
         Sheet sheet = wb.getSheetAt(0);
 
-        System.out.println("创建了sheet。。。");
         if (sheet == null){
             return false;
         }
@@ -86,6 +89,8 @@ public class ExcelServiceImpl implements ExcelService {
                     setMethod.invoke(yunshu, row.getCell(c).getStringCellValue());
                 } catch (NoSuchMethodException | SecurityException e) {
                     e.printStackTrace();
+
+                    logger.error("上传文件出现异常，事务已回滚");
                 }
 
             }
@@ -94,14 +99,10 @@ public class ExcelServiceImpl implements ExcelService {
             
         }
 
-        System.out.println("添加了所有的yunshu。。。");
 
-        int i = 0;
         for (Yunshu yunshuRecord : yunshuList) {
             yunshuRepo.save(yunshuRecord);
-            i++;
         }
-        System.out.println("成功保存了" + i + "个。。。");
 
         //返回true表示导入操作成功
         return true;

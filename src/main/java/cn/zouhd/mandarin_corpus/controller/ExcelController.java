@@ -1,6 +1,8 @@
 package cn.zouhd.mandarin_corpus.controller;
 
 import cn.zouhd.mandarin_corpus.service.ExcelService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Controller
 @RequestMapping("/excel")
 public class ExcelController {
 
     @Autowired
     ExcelService excelService;
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/import")
     public String excel(Model model){
@@ -25,18 +30,20 @@ public class ExcelController {
 
 
     @PostMapping("/import")
-    public String importExcel(@RequestParam MultipartFile file){
+    public String importExcel(@RequestParam MultipartFile file, Model model){
         String fileName = file.getOriginalFilename();
 
         boolean finished = false;
 
-        System.out.println("进入了importExcel...");
         try {
             finished = excelService.excelBatchImport(fileName, file);
-            System.out.println("执行了excelService....");
+            logger.info("成功上传了一个文件：" + fileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "404";
+
+
+        model.addAttribute("msg", "上传成功");
+        return "dataOperation/excel";
     }
 }

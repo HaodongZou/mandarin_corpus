@@ -18,26 +18,29 @@ public class Yunshu {
     private String y1602;
     private String y1611;
     private String y1661t1670;
-    @Column
     private String y1711;
-    @Column
     private String y1674;
-    @Column
     private String y1699t1704;
-    @Column
     private String y1726;
-    @Column
     private String qianLongWanNian;
-    @Column
     private String y1805;
-    @Column
     private String y1817;
-    @Column
     private String y1805t1858;
-    @Column
     private String y1840;
     private String y1863;
     private String y1912;
     private String y1921;
+//    private String y1581;
+//    private String y1603;
+//    private String y1632;
+//    private String y1776;
+//    private String y1642;
+//    private String y1739;
+//    private String y1849;
+//    private String y1587;
+//    private String y1921;
+//    private String y1921;
+//    private String y1921;
+//    private String y1921;
 
 }

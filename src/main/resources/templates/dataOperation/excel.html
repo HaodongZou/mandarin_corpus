@@ -56,15 +56,22 @@
 					<form action="#" th:action="@{/excel/import}" enctype="multipart/form-data" method="post">
 						<div class="input-group">
 							<div class="custom-file">
-								<input onchange="showFilename(this.files[0])" type="file" class="custom-file-input"
+								<input onchange="showFilename(this.files[0])" name="file" type="file" class="custom-file-input"
 									   id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
 								<label id="filename_label" class="custom-file-label" for="inputGroupFile04">选择要上传的文件</label>
 							</div>
 							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">上传</button>
+								<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">上传</button>
 							</div>
 						</div>
 					</form>
+					<br>
+					<div class="alert alert-success alert-dismissible fade show" th:if="${msg} != null">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong> [[${msg}]] </strong>
+<!--						<p th:text="${msg}" style="color: red;"></p>-->
+					</div>
+
 				</main>
 			</div>
 		</div>

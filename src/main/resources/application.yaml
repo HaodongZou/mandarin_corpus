@@ -13,5 +13,4 @@ spring:
     cache: false
 logging:
   file:
-    path: /spring/log
-
+    path: /var/log

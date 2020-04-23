@@ -27,6 +27,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/yunshu").setViewName("yunshu/yunshu");
 
         registry.addViewController("/excel/import").setViewName("dataOperation/excel");
+
     }
 
 }

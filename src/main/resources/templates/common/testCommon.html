@@ -21,7 +21,7 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link active" href="#" th:href="@{/main}"
-                   th:class="${activeUrl} == 'mainPage' ? 'nav-link active' : 'nav-link'">
+                    th:class="${activeUrl} == 'mainPage' ? 'nav-link active' : 'nav-link'">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -29,15 +29,15 @@
                     介绍 <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <!--            <li class="nav-item">-->
-            <!--                <a class="nav-link" href="#">-->
-            <!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">-->
-            <!--                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>-->
-            <!--                        <polyline points="13 2 13 9 20 9"></polyline>-->
-            <!--                    </svg>-->
-            <!--                    综合搜索-->
-            <!--                </a>-->
-            <!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="#">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">-->
+<!--                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>-->
+<!--                        <polyline points="13 2 13 9 20 9"></polyline>-->
+<!--                    </svg>-->
+<!--                    综合搜索-->
+<!--                </a>-->
+<!--            </li>-->
             <li class="nav-item">
                 <a class="nav-link" href="#"
                    th:class="${activeUrl} == 'zhongjinguPage' ? 'nav-link active' : 'nav-link'">
@@ -49,31 +49,30 @@
                     中今古音韵
                 </a>
             </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="#" th:href="@{/yunshu}"-->
+<!--                   th:class="${activeUrl} == 'yunshuPage' ? 'nav-link active' : 'nav-link'">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">-->
+<!--                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>-->
+<!--                        <circle cx="9" cy="7" r="4"></circle>-->
+<!--                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>-->
+<!--                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>-->
+<!--                    </svg>-->
+<!--                    韵书韵图-->
+<!--                </a>-->
+<!--            </li>-->
             <li class="nav-item">
-
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="yunshuyuntu">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                        韵书韵图
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="yunshuyuntu">
-                        <li role="presentation">
-                            <a href="#" class="dropdown-item" th:href="@{/yunshu/guangyuns(pageNum=1)}" > 广韵 </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#" class="dropdown-item" th:href="@{/yunshu}" > 韵书 </a>
-                        </li>
-                        <li role= "presentation">
-                            <a href="#" class="dropdown-item" th:href="@{/yunshu}" > 韵图 </a>
-                        </li>
-
-                    </ul>
-                </div>
+<!--                <a class="nav-link active card-columns" data-toggle="collapse" href="#guangyun"-->
+<!--                   th:class="${activeUrl} == 'yunshuPage' ? 'nav-link navbar-toggler active' : 'nav-link navbar-toggler'">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">-->
+<!--                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>-->
+<!--                        <circle cx="9" cy="7" r="4"></circle>-->
+<!--                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>-->
+<!--                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>-->
+<!--                    </svg>-->
+<!--                    韵书韵图-->
+<!--                </a>-->
+                <ul></ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"
@@ -172,84 +171,64 @@
 </nav>
 <!--韵书韵图数据表格头-->
 <thead th:fragment="yunshuThead">
-<tr>
-    <th></th>
-    <th></th>
-    <th>HBZXJY</th>
-    <th>YYP</th>
-    <th>WFYY1</th>
-    <th>WFYY2</th>
-    <th>ZAYW</th>
-    <th>XSYX</th>
-    <th>YYCW</th>
-    <th>HZTY</th>
-    <th>LSYJ</th>
-    <th>YF</th>
-    <th>YL</th>
-    <th>YYFY</th>
-    <th>NBFY</th>
-    <th>JYZH</th>
-    <th>GJDZ</th>
-</tr>
-<tr>
-    <th></th>
-    <th></th>
-    <th>徐孝、张元善</th>
-    <th>乔中和</th>
-    <th>樊腾凤</th>
-    <th>年希尧</th>
-    <th>赵绍箕</th>
-    <th>释阿摩利谛</th>
-    <th>李光地、王兰生</th>
-    <th>都四德</th>
-    <th>李汝珍</th>
-    <th>徐鉴</th>
-    <th>华长忠</th>
-    <th>裕恩</th>
-    <th>夏鸾翔</th>
-    <th>王璞</th>
-    <th>王璞</th>
-</tr>
-<tr>
-    <th>#</th>
-    <th>單字</th>
-    <th>1602</th>
-    <th>1611</th>
-    <th>1661-1670</th>
-    <th>1711</th>
-    <th>1674</th>
-    <th>1699-1704</th>
-    <th>1726</th>
-    <th>乾隆晚年</th>
-    <th>1805</th>
-    <th>1817</th>
-    <th>1805-1858</th>
-    <th>1840</th>
-    <th>1863</th>
-    <th>1912</th>
-    <th>1921</th>
-</tr>
-</thead>
-<!--广韵数据表格头-->
-<thead th:fragment="guangyunThead">
     <tr>
-        <th>id</th>
-<!--        <th>shn</th>-->
-<!--        <th>n</th>-->
-<!--        <th>code</th>-->
-        <th>字</th>
-        <th>反切</th>
-        <th>声</th>
-        <th>韵</th>
-        <th>口</th>
-        <th>等</th>
-        <th>调</th>
-        <th>摄</th>
-        <th>声母拟音</th>
-        <th>韵母拟音</th>
-        <th>拟音</th>
-        <th style="text-align: left">注释</th>
+        <th></th>
+        <th></th>
+        <th>HBZXJY</th>
+        <th>YYP</th>
+        <th>WFYY1</th>
+        <th>WFYY2</th>
+        <th>ZAYW</th>
+        <th>XSYX</th>
+        <th>YYCW</th>
+        <th>HZTY</th>
+        <th>LSYJ</th>
+        <th>YF</th>
+        <th>YL</th>
+        <th>YYFY</th>
+        <th>NBFY</th>
+        <th>JYZH</th>
+        <th>GJDZ</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>徐孝、张元善</th>
+        <th>乔中和</th>
+        <th>樊腾凤</th>
+        <th>年希尧</th>
+        <th>赵绍箕</th>
+        <th>释阿摩利谛</th>
+        <th>李光地、王兰生</th>
+        <th>都四德</th>
+        <th>李汝珍</th>
+        <th>徐鉴</th>
+        <th>华长忠</th>
+        <th>裕恩</th>
+        <th>夏鸾翔</th>
+        <th>王璞</th>
+        <th>王璞</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>單字</th>
+        <th>1602</th>
+        <th>1611</th>
+        <th>1661-1670</th>
+        <th>1711</th>
+        <th>1674</th>
+        <th>1699-1704</th>
+        <th>1726</th>
+        <th>乾隆晚年</th>
+        <th>1805</th>
+        <th>1817</th>
+        <th>1805-1858</th>
+        <th>1840</th>
+        <th>1863</th>
+        <th>1912</th>
+        <th>1921</th>
     </tr>
 </thead>
+
 </body>
 </html>
