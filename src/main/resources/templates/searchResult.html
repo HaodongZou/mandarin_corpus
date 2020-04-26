@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052) -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>搜索结果</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/asserts/css/dashboard.css" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="common/common :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="common/common :: sidebar"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h1 style="display: inline">检索结果</h1>&nbsp;&nbsp;&nbsp;&nbsp;
+            <p class="custom-control-inline text-info font-weight-bold" >共[[${results.size()}]]条结果</p>
+            <hr>
+            <div class="container" th:each="result:${results}">
+                <h2>
+                    <span class="badge badge-info" th:text="${resultStat.index} + 1">序号</span>
+                    &nbsp;
+                    <a href="#" class="custom-control-inline " th:text="${result.word}" ></a>
+                    <p class="custom-control-inline text-muted"><small class="font-weight-bold">[ [[${result.niyin}]] ]</small></p>
+                </h2>
+                
+               
+<!--                <h1 class="custom-control-inline" th:text="" style="font-weight: bold">单字</h1>-->
+                <br>
+                <h5>
+                    <ul class="list-inline font-weight-bold">
+                        反切：
+                        <p class="custom-control-inline text-danger" th:text="${result.fanqie}"></p>
+                        <br>
+                        声：
+                        <p class="custom-control-inline text-danger" th:text="${result.sheng}"></p>
+                        韵：
+                        <p class="custom-control-inline text-danger" th:text="${result.yun}"></p>
+                        <br>
+                        <p class="d-inline text-danger" th:text="${result.she}"></p>摄
+                        <p class="d-inline text-danger" th:text="${result.kou}"></p>口
+                        <p class="d-inline text-danger" th:text="${result.deng}"></p>等
+                        <p class="d-inline text-danger" th:text="${result.diao}"></p>调
+                        <br>
+                        <br>
+                        注释：
+                        <p class="custom-control-inline text-muted" th:text="${result.zhushi}"></p>
+                    </ul>
+                </h5>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" ></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" ></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" ></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
+
+</body>
+
+</html>

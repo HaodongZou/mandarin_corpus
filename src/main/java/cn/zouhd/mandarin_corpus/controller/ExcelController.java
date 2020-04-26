@@ -33,17 +33,20 @@ public class ExcelController {
     public String importExcel(@RequestParam MultipartFile file, Model model){
         String fileName = file.getOriginalFilename();
 
-        boolean finished = false;
 
         try {
-            finished = excelService.excelBatchImport(fileName, file);
+            excelService.excelBatchImport(fileName, file);
             logger.info("成功上传了一个文件：" + fileName);
         } catch (Exception e) {
             e.printStackTrace();
+            model.addAttribute("msg", e.getMessage())
+            .addAttribute("success", false);
+            return "dataOperation/excel";
         }
 
 
-        model.addAttribute("msg", "上传成功");
+        model.addAttribute("msg", "上传成功")
+        .addAttribute("success", true);
         return "dataOperation/excel";
     }
 }

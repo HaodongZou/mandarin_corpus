@@ -94,10 +94,9 @@ public class YunshuController {
             while(guangyun.getZhushi().contains("上同")){
                 guangyun.setZhushi(guangyunRepo.findById(guangyun.getId() - 1).orElse(null).getZhushi());
             }
-
         }
         model.addAttribute("results", byWordLike);
-        return "yunshu/guangyun";
+        return "searchResult";
     }
 
 
