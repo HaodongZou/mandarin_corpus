@@ -49,19 +49,25 @@
 				<div th:replace="common/common :: sidebar"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h2> 导入Excel表格 </h2>
+					<h2> 导出Excel表格 </h2>
 					<br>
-					<p><strong>请注意，上传的文件支持.xls和.xlsx两种格式。</strong>建议下载模板文件后，将数据复制入模板文件中再进行上传。</p>
+					<p><strong>点击按钮下载各数据库模板文件</strong></p>
+					<div class="custom-control-inline">
+						<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon05">下载模板</button>
+					</div>
+					<br>
+					<br>
+					<br>
 
 					<form action="#" th:action="@{/excel/import}" enctype="multipart/form-data" method="post">
 						<div class="input-group">
 							<div class="custom-file">
 								<input onchange="showFilename(this.files[0])" name="file" type="file" class="custom-file-input"
 									   id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-								<label id="filename_label" class="custom-file-label" for="inputGroupFile04">选择要上传的文件</label>
+								<label id="filename_label" class="custom-file-label" for="inputGroupFile04">选择要下载的数据文件</label>
 							</div>
 							<div class="input-group-append">
-								<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">上传</button>
+								<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">下载</button>
 							</div>
 						</div>
 					</form>

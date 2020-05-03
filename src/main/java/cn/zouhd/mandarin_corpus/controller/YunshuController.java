@@ -26,8 +26,8 @@ import java.util.Optional;
 public class YunshuController {
 
 
-    private YunshuRepo yunshuRepo;
-    private GuangyunRepo guangyunRepo;
+    private final YunshuRepo yunshuRepo;
+    private final GuangyunRepo guangyunRepo;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired

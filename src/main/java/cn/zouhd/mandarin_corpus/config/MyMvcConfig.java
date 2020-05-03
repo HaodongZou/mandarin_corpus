@@ -28,6 +28,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
 
         registry.addViewController("/excel/import").setViewName("dataOperation/excel");
 
+        registry.addViewController("/excel/export").setViewName("dataOperation/exportExcel");
+
     }
 
 }
