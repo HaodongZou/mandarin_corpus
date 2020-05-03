@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052) -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Excel表格</title>
+		<!-- Bootstrap core CSS -->
+		<link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="/asserts/css/dashboard.css" rel="stylesheet">
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div th:replace="common/common :: navbar"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div th:replace="common/common :: sidebar"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<h2> 导入Excel表格 </h2>
+					<br>
+					<p><strong>请注意，上传的文件支持.xls和.xlsx两种格式。</strong>建议下载模板文件后，将数据复制入模板文件中再进行上传。</p>
+
+					<form action="#" th:action="@{/excel/import}" enctype="multipart/form-data" method="post">
+						<div class="input-group">
+							<div class="custom-file">
+								<input onchange="showFilename(this.files[0])" name="file" type="file" class="custom-file-input"
+									   id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+								<label id="filename_label" class="custom-file-label" for="inputGroupFile04">选择要上传的文件</label>
+							</div>
+							<div class="input-group-append">
+								<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">上传</button>
+							</div>
+						</div>
+					</form>
+					<br>
+					<div class="alert alert-success alert-dismissible fade show" th:if="${msg} != null and ${success} == true">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong> [[${msg}]] </strong>
+<!--						<p th:text="${msg}" style="color: red;"></p>-->
+					</div>
+
+					<div class="alert alert-danger alert-dismissible fade show" th:if="${msg} != null and ${success} == false">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong> [[${msg}]] </strong>
+						<!--						<p th:text="${msg}" style="color: red;"></p>-->
+					</div>
+
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="/asserts/js/jquery-3.2.1.slim.min.js" ></script>
+		<script type="text/javascript" src="/asserts/js/popper.min.js" ></script>
+		<script type="text/javascript" src="/asserts/js/bootstrap.min.js" ></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
+		<script>
+			feather.replace()
+		</script>
+
+		<!-- Graphs -->
+		<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
+
+
+		<!-- 显示文件名 -->
+		<script>
+			function showFilename(file){
+				$("#filename_label").html(file.name);
+			}
+		</script>
+	</body>
+
+</html>
