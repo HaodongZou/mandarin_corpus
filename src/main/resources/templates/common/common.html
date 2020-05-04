@@ -29,25 +29,48 @@
                     介绍 <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <!--            <li class="nav-item">-->
-            <!--                <a class="nav-link" href="#">-->
-            <!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">-->
-            <!--                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>-->
-            <!--                        <polyline points="13 2 13 9 20 9"></polyline>-->
-            <!--                    </svg>-->
-            <!--                    综合搜索-->
-            <!--                </a>-->
-            <!--            </li>-->
+
             <li class="nav-item">
-                <a class="nav-link" href="#"
-                   th:class="${activeUrl} == 'zhongjinguPage' ? 'nav-link active' : 'nav-link'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                <a class="nav-link" href="#zhonggu" data-toggle="collapse">
+                    <svg class="feather bi bi-book" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"  xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 010 13.5v-11a.5.5 0 01.276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 01.22-.103 12.958 12.958 0 012.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 001 2.82z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 007.5 2.5v11a.5.5 0 00.854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0016 13.5v-11a.5.5 0 00-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 00-.799-.34 12.96 12.96 0 00-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0115 2.82z" clip-rule="evenodd"/>
                     </svg>
-                    中今古音韵
+                    中古近代音韵
                 </a>
+                <div id="zhonggu" class="collapse">
+                    <a class="nav-link" href="#" th:href="@{/yunshu/guangyuns(pageNum=1)}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        广韵</a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        集韵 </a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        中原音韵 </a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        中州音韵 </a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        蒙古字韵 </a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        洪武正韵 </a>
+
+                </div>
             </li>
             <li class="nav-item">
 
@@ -66,18 +89,38 @@
                             <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
                             </svg>
-                            广韵</a>
+                            燕京东北地区</a>
                         <a class="nav-link" href="#"  th:href="@{/yunshu}" >
                             <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
                             </svg>
-                            韵书 </a>
+                            正音类 </a>
+                        <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                            <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                            </svg>
+                            中原、西北地区 </a>
+                        <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                            <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                            </svg>
+                            山东地区 </a>
+                        <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                            <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                            </svg>
+                            江淮官话 </a>
+                        <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                            <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                            </svg>
+                            西南官话 </a>
+
                     </div>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"
-                   th:class="${activeUrl} == 'hanwaiPage' ? 'nav-link active' : 'nav-link'">
+                <a class="nav-link" href="#hanwai" data-toggle="collapse">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
                         <line x1="18" y1="20" x2="18" y2="10"></line>
                         <line x1="12" y1="20" x2="12" y2="4"></line>
@@ -85,17 +128,61 @@
                     </svg>
                     汉外译音
                 </a>
+                <div id="hanwai" class="collapse">
+                    <a class="nav-link" href="#" th:href="@{/yunshu/guangyuns(pageNum=1)}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        罗马字母标音</a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        片假名标音 </a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        谚文标音 </a>
+
+                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"
-                   th:class="${activeUrl} == 'yayunPage' ? 'nav-link active' : 'nav-link'">
+                <a class="nav-link" href="#yayun" data-toggle="collapse">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
                         <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
                         <polyline points="2 17 12 22 22 17"></polyline>
                         <polyline points="2 12 12 17 22 12"></polyline>
                     </svg>
-                    押韵资料
+                    讲唱文学押韵资料
                 </a>
+                <div id="yayun" class="collapse">
+                    <a class="nav-link" href="#" th:href="@{/yunshu/guangyuns(pageNum=1)}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        宝卷</a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        秦腔 </a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        曲子词 </a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        杂剧 </a>
+                    <a class="nav-link" href="#"  th:href="@{/yunshu}" >
+                        <svg class="bi bi-caret-right-fill" width="3em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 011.659-.753l5.48 4.796a1 1 0 010 1.506z"/>
+                        </svg>
+                        散曲 </a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"
@@ -106,6 +193,17 @@
                         <polyline points="2 12 12 17 22 12"></polyline>
                     </svg>
                     方志资料
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"
+                   th:class="${activeUrl} == 'fangzhiPage' ? 'nav-link active' : 'nav-link'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    普通话基础方音
                 </a>
             </li>
         </ul>
