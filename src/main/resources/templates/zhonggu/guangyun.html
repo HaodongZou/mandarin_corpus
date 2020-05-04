@@ -87,7 +87,7 @@
 						</table>
 					</div>
 					<div class="list-inline pagination pagination-sm justify-content-center">
-						<a class="btn btn-primary" th:href="@{/yunshu/guangyuns(pageNum=${pageNum} - 1)}"
+						<a class="btn btn-primary" th:href="@{/zhonggu/guangyuns(pageNum=${pageNum} - 1)}"
 							th:if="${pageNum} > 1">
 							< 上一页
 						</a> &nbsp;
@@ -99,7 +99,7 @@
 						&nbsp;&nbsp;
 						<a id="jumpToPage" class="btn btn-primary" href="#" onclick="jumptoPage()">跳转</a>
 						&nbsp;&nbsp;
-						<a class="btn btn-primary" th:href="@{/yunshu/guangyuns(pageNum=${pageNum} + 1)}">
+						<a class="btn btn-primary" th:href="@{/zhonggu/guangyuns(pageNum=${pageNum} + 1)}">
 							下一页 >
 						</a>
 					</div>
