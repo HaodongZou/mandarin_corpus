@@ -13,15 +13,15 @@
 	</head>
 
 	<body class="text-center">
-		<form class="form-signin" action="dashboard.html" th:action="@{/user/login}" method="post">
+		<form class="form-signin" action="dashboard.html" th:action="@{/login}" method="post">
 			<img class="mb-4" src="/asserts/img/corpus1.svg"  width="180" height="180" >
 			<h1 class="h4 mb-3 font-weight-normal">元明清民国官话语音语料库</h1>
 			<br>
-			<p th:text="${msg}" style="color: red"></p>
+			<p th:if="${param.error}" style="color: red">登录错误,请检查用户名密码</p>
 			<label class="sr-only">Username</label>
-			<input name="username" type="text" class="form-control" placeholder="用户名" required="" autofocus="">
+			<input id="username" name="username" type="text" class="form-control" placeholder="用户名" required="" autofocus="">
 			<label class="sr-only">Password</label>
-			<input name="password" type="password" class="form-control" placeholder="密码" required="">
+			<input id="password" name="password" type="password" class="form-control" placeholder="密码" required="">
 			<div class="checkbox mb-3">
 				<label>
           <input type="checkbox" value="remember-me"> 记住我
