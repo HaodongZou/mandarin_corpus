@@ -39,13 +39,13 @@ public class ExcelController {
             logger.info("成功上传了一个文件：" + fileName);
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("msg", e.getMessage())
+            model.addAttribute("msg",e.getMessage() + ":" + fileName)
             .addAttribute("success", false);
             return "dataOperation/excel";
         }
 
 
-        model.addAttribute("msg", "上传成功")
+        model.addAttribute("msg", "上传成功：" + fileName)
         .addAttribute("success", true);
         return "dataOperation/excel";
     }
