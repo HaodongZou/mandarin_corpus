@@ -10,12 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MyMvcConfig implements WebMvcConfigurer {
 
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/", "/index.html", "/login", "/user/login", "/asserts/**", "/webjars/**");
-
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
+//                .excludePathPatterns("/", "/index.html", "/login", "/user/login", "/asserts/**", "/webjars/**");
+//
+//    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
