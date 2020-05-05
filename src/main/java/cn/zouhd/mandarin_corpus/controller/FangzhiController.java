@@ -1,7 +1,9 @@
 package cn.zouhd.mandarin_corpus.controller;
 
 import cn.zouhd.mandarin_corpus.entities.Fangzhi;
+import cn.zouhd.mandarin_corpus.entities.Subcategory;
 import cn.zouhd.mandarin_corpus.repositories.FangzhiRepo;
+import cn.zouhd.mandarin_corpus.repositories.SubcategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,21 +18,21 @@ public class FangzhiController {
     @Autowired
     FangzhiRepo fangzhiRepo;
 
+    @Autowired
+    SubcategoryRepo subcategoryRepo;
+
     @GetMapping
     public String fangzhi(Model model){
-        List<Fangzhi> all = fangzhiRepo.findAll();
+        List<Subcategory> all = subcategoryRepo.findByCategoryLike("%方志%");
         model.addAttribute("results", all)
             .addAttribute("activeUrl", "fangzhi");
-        return "fangzhi/search";
+        return "common/subcategorySearch";
     }
 
     @GetMapping("/search")
     @ResponseBody
-    public List<Fangzhi> fangzhiSearch(@RequestParam String fangzhi){
-        String name = "%" + fangzhi + "%";
-
-
-        return fangzhiRepo.findByNameLike(name);
-
+    public List<Subcategory> fangzhiSearch(@RequestParam String name){
+        String fangzhiName = "%" + name + "%";
+        return subcategoryRepo.findByNameLike(fangzhiName);
     }
 }

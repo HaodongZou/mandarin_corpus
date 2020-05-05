@@ -9,12 +9,15 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "corpus.fangzhi")
-public class Fangzhi {
+@Table(name = "corpus.subcategory")
+public class Subcategory {
 
     @Id
     Integer id;
-    //TODO: 有待修改方志数据库
-    @Column(name = "fangzhi")
+
+    @Column
+    String category;
+    @Column
     String name;
+
 }

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052) -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -7,8 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <div th:switch="${#httpServletRequest.requestURI}">
+        <title th:case="'/yayun/baojuan'">宝卷</title>
+        <title th:case="'/yayun/qinqiang'">秦腔</title>
+        <title th:case="'/yayun/quzici'">曲子词</title>
+        <title th:case="'/yayun/zaju'">杂剧</title>
+        <title th:case="'/fangzhi'">方志</title>
+    </div>
 
-    <title>方志资料</title>
     <!-- Bootstrap core CSS -->
     <link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -24,12 +29,18 @@
         <div th:replace="common/common :: sidebar"></div>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <h2> 方志资料 </h2>
+            <div th:switch="${#httpServletRequest.requestURI}">
+                <h2 th:case="'/yayun/baojuan'">宝卷</h2>
+                <h2 th:case="'/yayun/qinqiang'">秦腔</h2>
+                <h2 th:case="'/yayun/quzici'">曲子词</h2>
+                <h2 th:case="'/yayun/zaju'">杂剧</h2>
+                <h2 th:case="'/fagnzhi'">方志</h2>
+            </div>
             <br>
             <div class="container">
-                <form class="form-inline mt-5 mt-md-0" th:action="@{/fangzhi}" method="get">
+                <form class="form-inline mt-5 mt-md-0" th:action="@{${#httpServletRequest.requestURI}}" method="get">
                     <div class="form-group">
-                        <input id="fangzhi" name="fangzhi"  class="form-control mr-sm-2" type="text" placeholder="在这里查询" d aria-label="Search">
+                        <input id="name" name="name"  class="form-control mr-sm-2" type="text" placeholder="在这里查询" onblur="blurFn()" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确定</button>
                         &nbsp&nbsp<p class="m-auto" style="color: red" th:text=" ${msg} "></p>
                     </div>
@@ -38,8 +49,12 @@
             </div>
             <br>
             <div class="container">
-                <div th:each="result: ${results}" class="d-inline-flex flex-row mb-3 p-2 bg-light">
-                    <a th:href="@{'/fangzhi?fangzhi=' + ${result.name}}" th:text="${result.name}"></a>
+                <div th:each="result: ${results}" th:switch="${#httpServletRequest.requestURI}" class="d-inline-flex flex-row mb-3 p-2 bg-light">
+                    <a th:case="'/yayun/baojuan'" th:href="@{'/yayun/baojuan?baojuan=' + ${result.name}}" th:text="${result.name}"></a>
+                    <a th:case="'/yayun/qinqiang'" th:href="@{'/yayun/qinqiang?qinqiang=' + ${result.name}}" th:text="${result.name}"></a>
+                    <a th:case="'/yayun/quzici'" th:href="@{'/yayun/quzici?quzici=' + ${result.name}}" th:text="${result.name}"></a>
+                    <a th:case="'/yayun/zaju'" th:href="@{'/yayun/zaju?zaju=' + ${result.name}}" th:text="${result.name}"></a>
+                    <a th:case="'/fangzhi'" th:href="@{'/fangzhi?fangzhi=' + ${result.name}}" th:text="${result.name}"></a>
                 </div>
             </div>
         </main>
@@ -56,14 +71,14 @@
 
 
 <script type="text/javascript">
-    $('#fangzhi').autocomplete({
+    $('#name').autocomplete({
         minChars: 1,
         source: function (request, response) {
             var content = "";
             $.ajax({
-                url: "/fangzhi/search",
+                url: GetUrlRelativePath() + "/search",
                 data: {
-                    'fangzhi': request.term
+                    'name': request.term
                 },
                 success: function ( data ) {
                     if (data.length > 0){
@@ -77,12 +92,30 @@
 
         }
     })
-</script>
-<script type="text/javascript">
-    function clickFn(obj) {
-        console.log($(obj).text());
-        $('#fangzhi').val($(obj).text());
+    function clickFn(object) {
+        $('#name').val($(object).text());
         $('#showResults').css("display", "none");
+    }
+    function blurFn() {
+        $('#showResults').css("display", "none");
+    }
+    $('#name').keydown(function () {
+        $('#showResults').css("display", "none");
+    })
+    //获取当前URI
+    function GetUrlRelativePath()
+    {
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+
+        var start = arrUrl[1].indexOf("/");
+        //stop省略，截取从start开始到结尾的所有字符
+        var relUrl = arrUrl[1].substring(start);
+
+        if(relUrl.indexOf("?") !== -1){
+            relUrl = relUrl.split("?")[0];
+        }
+        return relUrl;
     }
 </script>
 </body>
