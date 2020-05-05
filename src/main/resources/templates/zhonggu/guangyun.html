@@ -14,32 +14,6 @@
 
 		<!-- Custom styles for this template -->
 		<link href="/asserts/css/dashboard.css" rel="stylesheet">
-		<style type="text/css">
-			/* Chart.js */
-			
-			@-webkit-keyframes chartjs-render-animation {
-				from {
-					opacity: 0.99
-				}
-				to {
-					opacity: 1
-				}
-			}
-			
-			@keyframes chartjs-render-animation {
-				from {
-					opacity: 0.99
-				}
-				to {
-					opacity: 1
-				}
-			}
-			
-			.chartjs-render-monitor {
-				-webkit-animation: chartjs-render-animation 0.001s;
-				animation: chartjs-render-animation 0.001s;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -67,9 +41,6 @@
 							<tbody>
 								<tr th:each="result : ${results}">
 									<td th:text="${result.id}"></td>
-<!--									<td th:text="${result.shn}"></td>-->
-<!--									<td th:text="${result.n}"></td>-->
-<!--									<td th:text="${result.code}"></td>-->
 									<td th:text="${result.word}"></td>
 									<td th:text="${result.fanqie}"></td>
 									<td th:text="${result.sheng}"></td>
@@ -111,17 +82,8 @@
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script type="text/javascript" src="../../asserts/js/jquery-3.2.1.slim.min.js"></script>
-		<script type="text/javascript" src="../../asserts/js/popper.min.js"></script>
 		<script type="text/javascript" src="../../asserts/js/bootstrap.min.js"></script>
 
-		<!-- Icons -->
-		<script type="text/javascript" src="../../asserts/js/feather.min.js"></script>
-		<script>
-			feather.replace()
-		</script>
-
-		<!-- Graphs -->
-		<script type="text/javascript" src="../../asserts/js/Chart.min.js"></script>
 		<script>
 			function jumptoPage() {
 				var specifiedPage = document.getElementById("specifiedPage").value;
