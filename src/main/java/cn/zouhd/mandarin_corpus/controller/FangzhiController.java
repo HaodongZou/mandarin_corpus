@@ -33,6 +33,6 @@ public class FangzhiController {
     @ResponseBody
     public List<Subcategory> fangzhiSearch(@RequestParam String name){
         String fangzhiName = "%" + name + "%";
-        return subcategoryRepo.findByNameLike(fangzhiName);
+        return subcategoryRepo.findByCategoryLikeAndNameLike("%方志%", fangzhiName);
     }
 }
