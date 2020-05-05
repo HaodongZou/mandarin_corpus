@@ -11,7 +11,7 @@
     <title>方志资料</title>
     <!-- Bootstrap core CSS -->
     <link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Custom styles for this template -->
     <link href="/asserts/css/dashboard.css" rel="stylesheet">
     <style type="text/css">
@@ -52,57 +52,15 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <h2> 方志资料 </h2>
             <br>
-            <form class="form-inline mt-2 mt-md-0" th:action="@{/zhonggu/guangyun}" method="get">
+            <form class="form-inline mt-5 mt-md-0" th:action="@{/fangzhi}" method="get">
                 <div class="form-group">
-                    <input name="word" class="form-control mr-sm-2" type="text" placeholder="在这里查询" aria-label="Search">
+                    <input id="fangzhi" name="fangzhi"  class="form-control mr-sm-2" type="text" placeholder="在这里查询" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
                     &nbsp&nbsp<p class="m-auto" style="color: red" th:text=" ${msg} "></p>
                 </div>
             </form>
-
+            <div id="showResults" style="display:none"></div>
             <br>
-            <div class="table-responsive text-center">
-                <table class="table text-nowrap table-hover table-bordered table-sm">
-                    <div th:replace="common/common :: guangyunThead"></div>
-                    <tbody>
-                    <tr th:each="result : ${results}">
-                        <td th:text="${result.id}"></td>
-                        <!--									<td th:text="${result.shn}"></td>-->
-                        <!--									<td th:text="${result.n}"></td>-->
-                        <!--									<td th:text="${result.code}"></td>-->
-                        <td th:text="${result.word}"></td>
-                        <td th:text="${result.fanqie}"></td>
-                        <td th:text="${result.sheng}"></td>
-                        <td th:text="${result.yun}"></td>
-                        <td th:text="${result.kou}"></td>
-                        <td th:text="${result.deng}"></td>
-                        <td th:text="${result.diao}"></td>
-                        <td th:text="${result.she}"></td>
-                        <td th:text="${result.shengmuniyin}"></td>
-                        <td th:text="${result.yunmuniyin}"></td>
-                        <td th:text="${result.niyin}"></td>
-                        <td th:text="${result.zhushi}" style="text-align: left"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="list-inline pagination pagination-sm justify-content-center">
-                <a class="btn btn-primary" th:href="@{/zhonggu/guangyuns(pageNum=${pageNum} - 1)}"
-                   th:if="${pageNum} > 1">
-                    < 上一页
-                </a> &nbsp;
-                <a class="btn btn-primary" href="#"
-                   th:if="${pageNum} <= 1">
-                    < 上一页
-                </a>&nbsp;&nbsp;
-                <input id="specifiedPage" type="text" placeholder="跳转到指定页码">
-                &nbsp;&nbsp;
-                <a id="jumpToPage" class="btn btn-primary" href="#" onclick="jumptoPage()">跳转</a>
-                &nbsp;&nbsp;
-                <a class="btn btn-primary" th:href="@{/zhonggu/guangyuns(pageNum=${pageNum} + 1)}">
-                    下一页 >
-                </a>
-            </div>
         </main>
     </div>
 </div>
@@ -110,10 +68,10 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="../../asserts/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="../../asserts/js/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="../../asserts/js/popper.min.js"></script>
 <script type="text/javascript" src="../../asserts/js/bootstrap.min.js"></script>
-
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 <!-- Icons -->
 <script type="text/javascript" src="../../asserts/js/feather.min.js"></script>
 <script>
@@ -122,15 +80,48 @@
 
 <!-- Graphs -->
 <script type="text/javascript" src="../../asserts/js/Chart.min.js"></script>
-<script>
-    function jumptoPage() {
-        var specifiedPage = document.getElementById("specifiedPage").value;
-        var jumpTo = document.getElementById("jumpToPage");
-        jumpTo.href = "/yunshu/guangyuns?pageNum=" + specifiedPage;
-        jumpTo.setAttribute("onclick", '');
+<!--<script type="text/javascript">-->
+<!--    $(function () {-->
+<!--        $('#fangzhi').keyup(function () {-->
+<!--            $.ajax({-->
+<!--                url: "/fangzhi/search",-->
+<!--                data: {-->
+<!--                    'fangzhi': $('#fangzhi').val()-->
+<!--                },-->
+<!--                success: function (data) {-->
+<!--                    console.log(data);-->
 
-    }
+<!--                }-->
+<!--            })-->
+<!--        })-->
+
+<!--    })-->
+<!--</script>-->
+<script type="text/javascript">
+    $('#fangzhi').autocomplete({
+        minChars: 1,
+        source: function (request, response) {
+            var content = "";
+            $.ajax({
+                url: "/fangzhi/search",
+                data: {
+                    'fangzhi': request.term
+                },
+                success: function ( data ) {
+                    if (data.length > 0){
+                        for (var i=0; i < data.length; i++){
+                            content += "<div class='card-text form-control'>" + data[i].name + "</div>";
+                        }
+                        $('#showResults').html(content).css("display", "block");
+                    }
+                }
+            })
+
+        }
+    })
 </script>
+
+
 
 
 </body>
