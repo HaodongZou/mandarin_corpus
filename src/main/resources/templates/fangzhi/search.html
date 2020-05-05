@@ -52,15 +52,22 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <h2> 方志资料 </h2>
             <br>
-            <form class="form-inline mt-5 mt-md-0" th:action="@{/fangzhi}" method="get">
-                <div class="form-group">
-                    <input id="fangzhi" name="fangzhi"  class="form-control mr-sm-2" type="text" placeholder="在这里查询" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
-                    &nbsp&nbsp<p class="m-auto" style="color: red" th:text=" ${msg} "></p>
-                </div>
-            </form>
-            <div id="showResults" style="display:none"></div>
+            <div class="container">
+                <form class="form-inline mt-5 mt-md-0" th:action="@{/fangzhi}" method="get">
+                    <div class="form-group">
+                        <input id="fangzhi" name="fangzhi"  class="form-control mr-sm-2" type="text" placeholder="在这里查询" d aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确定</button>
+                        &nbsp&nbsp<p class="m-auto" style="color: red" th:text=" ${msg} "></p>
+                    </div>
+                </form>
+                <div id="showResults" style="display:none; width: 205px" class="list-group float-left"></div>
+            </div>
             <br>
+            <div class="container">
+                <div th:each="result: ${results}" class="d-inline-flex flex-row mb-3 p-2 bg-light">
+                    <a th:href="@{'/fangzhi?fangzhi=' + ${result.name}}" th:text="${result.name}"></a>
+                </div>
+            </div>
         </main>
     </div>
 </div>
@@ -80,23 +87,7 @@
 
 <!-- Graphs -->
 <script type="text/javascript" src="../../asserts/js/Chart.min.js"></script>
-<!--<script type="text/javascript">-->
-<!--    $(function () {-->
-<!--        $('#fangzhi').keyup(function () {-->
-<!--            $.ajax({-->
-<!--                url: "/fangzhi/search",-->
-<!--                data: {-->
-<!--                    'fangzhi': $('#fangzhi').val()-->
-<!--                },-->
-<!--                success: function (data) {-->
-<!--                    console.log(data);-->
 
-<!--                }-->
-<!--            })-->
-<!--        })-->
-
-<!--    })-->
-<!--</script>-->
 <script type="text/javascript">
     $('#fangzhi').autocomplete({
         minChars: 1,
@@ -110,7 +101,7 @@
                 success: function ( data ) {
                     if (data.length > 0){
                         for (var i=0; i < data.length; i++){
-                            content += "<div class='card-text form-control'>" + data[i].name + "</div>";
+                            content += "<button type='button' class='list-group-item list-group-item-action' onclick='clickFn(this)'>" + data[i].name + "</button>";
                         }
                         $('#showResults').html(content).css("display", "block");
                     }
@@ -119,6 +110,15 @@
 
         }
     })
+</script>
+<script type="text/javascript">
+    function clickFn(obj) {
+        console.log($(obj).text());
+        $('#fangzhi').val($(obj).text());
+        $('#showResults').css("display", "none");
+
+
+    }
 </script>
 
 

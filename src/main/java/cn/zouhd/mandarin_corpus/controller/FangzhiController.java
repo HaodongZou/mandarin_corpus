@@ -4,6 +4,7 @@ import cn.zouhd.mandarin_corpus.entities.Fangzhi;
 import cn.zouhd.mandarin_corpus.repositories.FangzhiRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,18 +16,21 @@ public class FangzhiController {
     @Autowired
     FangzhiRepo fangzhiRepo;
 
+    @GetMapping
+    public String fangzhi(Model model){
+        List<Fangzhi> all = fangzhiRepo.findAll();
+        model.addAttribute("results", all)
+            .addAttribute("activeUrl", "fangzhi");
+        return "fangzhi/search";
+    }
+
     @GetMapping("/search")
     @ResponseBody
-    public List<Fangzhi> fangzhi(@RequestParam String fangzhi){
+    public List<Fangzhi> fangzhiSearch(@RequestParam String fangzhi){
         String name = "%" + fangzhi + "%";
-        List<Fangzhi> list = fangzhiRepo.findByNameLike(name);
 
-//        if (list == null){
-//            Fangzhi fangzhi1 = new Fangzhi();
-//            fangzhi1.setName(" ");
-//            list.add(fangzhi1);
-//        }
-        return list;
+
+        return fangzhiRepo.findByNameLike(name);
 
     }
 }
