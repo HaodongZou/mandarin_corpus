@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052) -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>[[${#response.status}]]错误</title>
+		<!-- Bootstrap core CSS -->
+		<link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="/asserts/css/dashboard.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div th:replace="common/common :: navbar"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div th:replace="common/common :: sidebar"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<h1 class="pb-4 mb-3 border-bottom">发生了[[${#response.status}]]错误</h1>
+					<div th:switch="${#response.status}">
+						<h3 th:case="500">服务器响应错误。</h3>
+						<h3 th:case="501">此请求方法不被服务器支持且无法被处理。</h3>
+						<h3 th:case="502">服务器获取响应错误。</h3>
+						<h3 th:case="503">服务器没有准备好处理请求。</h3>
+						<h3 th:case="505">服务器不支持请求中所使用的HTTP协议版本。</h3>
+						<h3 th:case="*">未知服务端响应错误。</h3>
+
+						<br>
+						<p class="h3">您将在 <span id="time" class="display-4 text-info h3 font-weight-bold">5</span> 秒后自动返回<a class="badge badge-primary text-decoration-none" href="/main">首页</a>。</p>
+					</div>
+				</main>
+			</div>
+		</div>
+
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" ></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" ></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" ></script>
+<script type="text/javascript">
+	window.onload = function () {
+		var i = 4;
+		var time = document.getElementById('time');
+		var timer = setInterval(function () {
+			if (i === -1){
+				window.location.href = "/main";
+				clearInterval(timer);
+			}
+			else {
+				time.innerHTML = i;
+				i --;
+			}
+
+		}, 1000)
+
+	}
+</script>
+
+	</body>
+
+</html>
