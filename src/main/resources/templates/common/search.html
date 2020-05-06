@@ -35,29 +35,86 @@
             </form>
 
             <br>
-            <div class="table-responsive text-center">
-                <table class="table text-nowrap table-hover table-bordered table-sm">
-<!--                    <thead>-->
-<!--                        <tr>-->
-<!--                            <td th:each="result : ${results}" th:text="${result.}"></td>-->
-<!--                        </tr>-->
+            <div class="table-responsive text-center" th:switch="${subcategory}">
+                <table class="table text-nowrap table-hover table-bordered table-sm" th:case="语言自迩集">
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>字</th>
+                            <th>自迩集音</th>
+                            <th>自迩集韵</th>
+                            <th>自迩集声</th>
+                        </tr>
 
-<!--                    </thead>-->
+                    </thead>
                     <tbody>
                     <tr th:each="result : ${results}">
                         <td th:text="${result.id}"></td>
                         <td th:text="${result.word}"></td>
-                        <td th:text="${result.zejSheng}"></td>
+                        <td th:text="${result.zejYin}"></td>
                         <td th:text="${result.zejYin}"></td>
                         <td th:text="${result.zejYun}"></td>
-<!--                        <td th:text="${result.kou}"></td>-->
-<!--                        <td th:text="${result.deng}"></td>-->
-<!--                        <td th:text="${result.diao}"></td>-->
-<!--                        <td th:text="${result.she}"></td>-->
-<!--                        <td th:text="${result.shengmuniyin}"></td>-->
-<!--                        <td th:text="${result.yunmuniyin}"></td>-->
-<!--                        <td th:text="${result.niyin}"></td>-->
-<!--                        <td th:text="${result.zhushi}" style="text-align: left"></td>-->
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table text-nowrap table-hover table-bordered table-sm" th:case="寻津录">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>字</th>
+                        <th>尋津彔音</th>
+                        <th>尋津彔韻</th>
+                        <th>尋津彔聲</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.id}"></td>
+                        <td th:text="${result.word}"></td>
+                        <td th:text="${result.xjlYin}"></td>
+                        <td th:text="${result.xjlYun}"></td>
+                        <td th:text="${result.xjlSheng}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table text-nowrap table-hover table-bordered table-sm" th:case="华英文义津逮">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>字</th>
+                        <th>华英音</th>
+                        <th>华英韵</th>
+                        <th>华英声</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.id}"></td>
+                        <td th:text="${result.word}"></td>
+                        <td th:text="${result.hywyjdYin}"></td>
+                        <td th:text="${result.hywyjdYun}"></td>
+                        <td th:text="${result.hywyjdSheng}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table text-nowrap table-hover table-bordered table-sm" th:case="唐话纂要">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>字</th>
+                        <th>唐話類纂擬音</th>
+                        <th>唐話類纂標音</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.id}"></td>
+                        <td th:text="${result.word}"></td>
+                        <td th:text="${result.thzyNiyin}"></td>
+                        <td th:text="${result.thzyBiaoyin}"></td>
                     </tr>
                     </tbody>
                 </table>

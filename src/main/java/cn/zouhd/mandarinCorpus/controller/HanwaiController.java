@@ -53,6 +53,18 @@ public class HanwaiController {
             case "寻津录" :
                 notnull = hanwaiRepo.findByXjlShengNotNullOrXjlYinNotNullOrXjlYunNotNull(pageable);
                 break;
+            case "华英文义津逮" :
+                notnull = hanwaiRepo.findByHywyjdShengNotNullOrHywyjdYinNotNullOrHywyjdYunNotNull(pageable);
+                break;
+            case "唐话纂要" :
+                notnull = hanwaiRepo.findByThzyBiaoyinNotNullOrThzyNiyinNotNull(pageable);
+                break;
+            case "四声通解" :
+                notnull = hanwaiRepo.findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjZhuyinNotNull(pageable);
+                break;
+            case "华英启蒙谚解" :
+                notnull = hanwaiRepo.findByHyqmyjShengNotNullOrHyqmyjYunNotNull(pageable);
+                break;
             default: return "404";
         }
 
