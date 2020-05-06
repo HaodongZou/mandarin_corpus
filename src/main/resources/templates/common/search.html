@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052) -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title th:text="${subcategory}">广韵</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/asserts/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+<div th:replace="common/common :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="common/common :: sidebar"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h2> [[${subcategory}]] <small class="text-muted font-weight-light" th:text="${category}">111</small></h2>
+            <br>
+            <form class="form-inline mt-2 mt-md-0" th:action="@{${#httpServletRequest.requestURI}}" method="get">
+                <div class="form-group">
+                    <input name="word" class="form-control mr-sm-2" type="text" placeholder="在这里查询" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                    &nbsp&nbsp<p class="m-auto" style="color: red" th:text=" ${msg} "></p>
+                </div>
+            </form>
+
+            <br>
+            <div class="table-responsive text-center">
+                <table class="table text-nowrap table-hover table-bordered table-sm">
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <td th:each="result : ${results}" th:text="${result.}"></td>-->
+<!--                        </tr>-->
+
+<!--                    </thead>-->
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.id}"></td>
+                        <td th:text="${result.word}"></td>
+                        <td th:text="${result.zejSheng}"></td>
+                        <td th:text="${result.zejYin}"></td>
+                        <td th:text="${result.zejYun}"></td>
+<!--                        <td th:text="${result.kou}"></td>-->
+<!--                        <td th:text="${result.deng}"></td>-->
+<!--                        <td th:text="${result.diao}"></td>-->
+<!--                        <td th:text="${result.she}"></td>-->
+<!--                        <td th:text="${result.shengmuniyin}"></td>-->
+<!--                        <td th:text="${result.yunmuniyin}"></td>-->
+<!--                        <td th:text="${result.niyin}"></td>-->
+<!--                        <td th:text="${result.zhushi}" style="text-align: left"></td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="list-inline pagination pagination-sm justify-content-center">
+                <a class="btn btn-primary" th:href="@{${#httpServletRequest.requestURI} + '?pageNum=' + ${pageNum - 1}}"
+                   th:if="${pageNum} > 1">
+                    < 上一页
+                </a> &nbsp;
+                <a class="btn btn-primary" href="#"
+                   th:if="${pageNum} <= 1">
+                    < 上一页
+                </a>&nbsp;&nbsp;
+                <input id="specifiedPage" type="text" placeholder="跳转到指定页码">
+                &nbsp;&nbsp;
+                <a id="jumpToPage" class="btn btn-primary" href="#" onclick="jumptoPage()">跳转</a>
+                &nbsp;&nbsp;
+                <a class="btn btn-primary" th:href="@{${#httpServletRequest.requestURI} + '?pageNum=' + ${pageNum + 1}}">
+                    下一页 >
+                </a>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="../../asserts/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="../../asserts/js/bootstrap.min.js"></script>
+
+<script>
+    function jumptoPage() {
+        var specifiedPage = document.getElementById("specifiedPage").value;
+        var jumpTo = document.getElementById("jumpToPage");
+        jumpTo.href = GetUrlRelativePath() + "?pageNum=" + specifiedPage;
+        jumpTo.setAttribute("onclick", '');
+
+    }
+    function loadFn(object) {
+        object.valueOf(GetLastUrlRelativePath());
+
+    }
+    //获取当前URI中最后一部分
+    function GetLastUrlRelativePath()
+    {
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+
+        var start = arrUrl[1].lastIndexOf("/");
+        //stop省略，截取从start开始到结尾的所有字符
+        var relUrl = arrUrl[1].substring(start);
+
+        if(relUrl.indexOf("?") !== -1){
+            relUrl = relUrl.split("?")[0];
+        }
+        return relUrl;
+    }
+    //获取当前URI
+    function GetUrlRelativePath()
+    {
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+
+        var start = arrUrl[1].indexOf("/");
+        //stop省略，截取从start开始到结尾的所有字符
+        var relUrl = arrUrl[1].substring(start);
+
+        if(relUrl.indexOf("?") !== -1){
+            relUrl = relUrl.split("?")[0];
+        }
+        return relUrl;
+    }
+</script>
+</body>
+
+</html>
