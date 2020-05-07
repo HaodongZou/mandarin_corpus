@@ -123,9 +123,9 @@
                     <tr>
                         <th>编号</th>
                         <th>字</th>
-                        <th>四聲通解注音</th>
-                        <th>四聲通解聲調</th>
                         <th>四聲通解今俗音</th>
+                        <th>四聲通解聲調</th>
+                        <th>四聲通解备注</th>
                     </tr>
 
                     </thead>
@@ -133,9 +133,9 @@
                     <tr th:each="result : ${results}">
                         <td th:text="${result.id}"></td>
                         <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
-                        <td th:text="${result.sstjZhuyin}"></td>
-                        <td th:text="${result.sstjShengdiao}"></td>
                         <td th:text="${result.sstjJinsuyin}"></td>
+                        <td th:text="${result.sstjShengdiao}"></td>
+                        <td th:text="${result.sstjBeizhu}"></td>
                     </tr>
                     </tbody>
                 </table>

@@ -104,7 +104,7 @@ public class HanwaiController {
                     break;
                 case "四声通解" :
                     do {
-                        findList = hanwaiRepo.findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjZhuyinNotNull(pageable);
+                        findList = hanwaiRepo.findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjBeizhuNotNull(pageable);
                         pageable = PageRequest.of(++pageNum -1, 15);
                     }while (!findList.contains(hanwai));
                     break;
@@ -152,7 +152,7 @@ public class HanwaiController {
                     notnull = hanwaiRepo.findByThzyBiaoyinNotNullOrThzyNiyinNotNull(pageable);
                     break;
                 case "四声通解" :
-                    notnull = hanwaiRepo.findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjZhuyinNotNull(pageable);
+                    notnull = hanwaiRepo.findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjBeizhuNotNull(pageable);
                     break;
                 case "华英启蒙谚解" :
                     notnull = hanwaiRepo.findByHyqmyjShengNotNullOrHyqmyjYunNotNull(pageable);
@@ -186,7 +186,9 @@ public class HanwaiController {
         }
 
         model.addAttribute("results", results)
-                .addAttribute("templates",templates);
+                .addAttribute("templates",templates)
+                .addAttribute("subcategory", subcategory)
+                .addAttribute("category", category);
         return "common/results";
 
 

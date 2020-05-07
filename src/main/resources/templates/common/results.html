@@ -24,6 +24,7 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <h1 style="display: inline">检索结果</h1>&nbsp;&nbsp;&nbsp;&nbsp;
+            <p class="text-muted badge badge-light" style="font-size: large" th:text="${subcategory}"></p>&nbsp;&nbsp;&nbsp;&nbsp;
             <p class="custom-control-inline text-info font-weight-bold" >共[[${results.size()}]]条结果</p>
             <hr>
             <div class="container" th:each="result:${results}">
@@ -33,9 +34,6 @@
                     <a href="#" class="custom-control-inline " th:text="${result.word}" ></a>
 
                     <a class="text-light small badge badge-primary" style="font-size: small" href="#" >编号[[${result.id}]]</a>
-<!--                    TODO: 设计跳转到记录所在的页数-->
-<!--                       http://localhost:8080/hanwai/$%7B?sheetSearch=true#httpServletRequest.requestURI}(id=${result.id})-->
-
                     <a class="text-light small badge badge-secondary" style="font-size: small" href="#"
                        th:href="@{${#httpServletRequest.requestURI} + '?id=' + ${result.id} + '&sheetSearch=true'}" >在表格中查看</a>
                 </h2>
@@ -80,14 +78,16 @@
                             <p class="custom-control-inline text-danger" th:text="${result.hywyjdSheng}"></p>
                         </div>
                         <div class="sstj" style="display: none">
-                            四聲通解注音：
-                            <p class="custom-control-inline text-danger" th:text="${result.sstjZhuyin}"></p>
+                            四聲通解今俗音：
+                            <p class="custom-control-inline text-danger" th:text="${result.sstjJinsuyin}"></p>
                             <br>
                             四聲通解聲調：
                             <p class="custom-control-inline text-danger" th:text="${result.sstjShengdiao}"></p>
                             <br>
-                            四聲通解今俗音：
-                            <p class="custom-control-inline text-danger" th:text="${result.sstjJinsuyin}"></p>
+                            <div th:if="${result.sstjBeizhu}">
+                                四聲通解备注：
+                                <p class="custom-control-inline text-danger" th:text="${result.sstjBeizhu}"></p>
+                            </div>
                         </div>
                     </div>
                     韵：

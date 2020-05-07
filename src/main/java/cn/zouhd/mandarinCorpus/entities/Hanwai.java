@@ -73,9 +73,9 @@ public class Hanwai {
      */
     String thzyBiaoyin;
     /**
-     *  四聲通解 注音.
+     *  四聲通解 备注.
      */
-    String sstjZhuyin;
+    String sstjBeizhu;
     /**
      *  四聲通解 声调.
      */

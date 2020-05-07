@@ -28,7 +28,7 @@ public interface HanwaiRepo extends JpaRepository<Hanwai, Integer> {
 
     List<Hanwai> findByHywyjdShengNotNullOrHywyjdYinNotNullOrHywyjdYunNotNull (Pageable pageable);
 
-    List<Hanwai> findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjZhuyinNotNull (Pageable pageable);
+    List<Hanwai> findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjBeizhuNotNull (Pageable pageable);
 
     List<Hanwai> findByThzyBiaoyinNotNullOrThzyNiyinNotNull (Pageable pageable);
 }
