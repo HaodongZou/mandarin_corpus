@@ -34,19 +34,19 @@
 
                     <a class="text-light small badge badge-primary" style="font-size: small" href="#" >编号[[${result.id}]]</a>
 <!--                    TODO: 设计跳转到记录所在的页数-->
-                    <a class="text-light small badge badge-secondary" style="font-size: small" href="#" >在表格中查看</a>
+                    <a class="text-light small badge badge-secondary" style="font-size: small" href="#" th:href="@{${#httpServletRequest.requestURI}(word=${result.word})}" >在表格中查看</a>
                 </h2>
                 <br>
                 <ul class="list-inline font-weight-bold h5">
-                    <div id="subcategory">
-                        <div id="thzy" style="display: none">
+                    <div class="subcategory">
+                        <div class="thzy" style="display: none">
                             唐話類纂擬音：
                             <p class="custom-control-inline text-danger" th:text="${result.thzyNiyin}"></p>
                             <br>
                             唐話類纂標音：
                             <p class="custom-control-inline text-danger" th:text="${result.thzyBiaoyin}"></p>
                         </div>
-                        <div id="zej" style="display: none">
+                        <div class="zej" style="display: none">
                             自迩集音：
                             <p class="custom-control-inline text-danger" th:text="${result.zejYin}"></p>
                             <br>
@@ -56,7 +56,7 @@
                             自迩集声：
                             <p class="custom-control-inline text-danger" th:text="${result.zejSheng}"></p>
                         </div>
-                        <div id="xjl" style="display: none">
+                        <div class="xjl" style="display: none">
                             尋津彔音：
                             <p class="custom-control-inline text-danger" th:text="${result.xjlYin}"></p>
                             <br>
@@ -66,7 +66,7 @@
                             尋津彔聲：
                             <p class="custom-control-inline text-danger" th:text="${result.xjlSheng}"></p>
                         </div>
-                        <div id="hywyjd" style="display: none">
+                        <div class="hywyjd" style="display: none">
                             华英音：
                             <p class="custom-control-inline text-danger" th:text="${result.hywyjdYin}"></p>
                             <br>
@@ -76,7 +76,7 @@
                             华英声：
                             <p class="custom-control-inline text-danger" th:text="${result.hywyjdSheng}"></p>
                         </div>
-                        <div id="sstj" style="display: none">
+                        <div class="sstj" style="display: none">
                             四聲通解注音：
                             <p class="custom-control-inline text-danger" th:text="${result.sstjZhuyin}"></p>
                             <br>
@@ -135,7 +135,7 @@
     }
     window.onload = function () {
         var name = GetLastUrlRelativePath();
-        $("#" + name).css("display", "block");
+        $("div." + name).css("display", "block");
     }
 </script>
 
