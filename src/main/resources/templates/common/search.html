@@ -50,7 +50,7 @@
                     <tbody>
                     <tr th:each="result : ${results}">
                         <td th:text="${result.id}"></td>
-                        <td th:text="${result.word}"></td>
+                        <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
                         <td th:text="${result.zejYin}"></td>
                         <td th:text="${result.zejYin}"></td>
                         <td th:text="${result.zejYun}"></td>
@@ -71,7 +71,7 @@
                     <tbody>
                     <tr th:each="result : ${results}">
                         <td th:text="${result.id}"></td>
-                        <td th:text="${result.word}"></td>
+                        <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
                         <td th:text="${result.xjlYin}"></td>
                         <td th:text="${result.xjlYun}"></td>
                         <td th:text="${result.xjlSheng}"></td>
@@ -92,7 +92,7 @@
                     <tbody>
                     <tr th:each="result : ${results}">
                         <td th:text="${result.id}"></td>
-                        <td th:text="${result.word}"></td>
+                        <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
                         <td th:text="${result.hywyjdYin}"></td>
                         <td th:text="${result.hywyjdYun}"></td>
                         <td th:text="${result.hywyjdSheng}"></td>
@@ -112,9 +112,30 @@
                     <tbody>
                     <tr th:each="result : ${results}">
                         <td th:text="${result.id}"></td>
-                        <td th:text="${result.word}"></td>
+                        <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
                         <td th:text="${result.thzyNiyin}"></td>
                         <td th:text="${result.thzyBiaoyin}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table text-nowrap table-hover table-bordered table-sm" th:case="四声通解">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>字</th>
+                        <th>四聲通解注音</th>
+                        <th>四聲通解聲調</th>
+                        <th>四聲通解今俗音</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.id}"></td>
+                        <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
+                        <td th:text="${result.sstjZhuyin}"></td>
+                        <td th:text="${result.sstjShengdiao}"></td>
+                        <td th:text="${result.sstjJinsuyin}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -128,6 +149,7 @@
                    th:if="${pageNum} <= 1">
                     < 上一页
                 </a>&nbsp;&nbsp;
+                <button class="btn btn-light font-weight-bold">第[[${pageNum}]]页</button>&nbsp;&nbsp;
                 <input id="specifiedPage" type="text" placeholder="跳转到指定页码">
                 &nbsp;&nbsp;
                 <a id="jumpToPage" class="btn btn-primary" href="#" onclick="jumptoPage()">跳转</a>

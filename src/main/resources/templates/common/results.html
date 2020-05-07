@@ -31,32 +31,82 @@
                     <span class="badge badge-info" th:text="${resultStat.index} + 1">序号</span>
                     &nbsp;
                     <a href="#" class="custom-control-inline " th:text="${result.word}" ></a>
-                    <p class="custom-control-inline text-muted"><small class="font-weight-bold">[ [[${result.niyin}]] ]</small></p>
+
+                    <a class="text-light small badge badge-primary" style="font-size: small" href="#" >编号[[${result.id}]]</a>
+<!--                    TODO: 设计跳转到记录所在的页数-->
+                    <a class="text-light small badge badge-secondary" style="font-size: small" href="#" >在表格中查看</a>
                 </h2>
-
-
-                <!--                <h1 class="custom-control-inline" th:text="" style="font-weight: bold">单字</h1>-->
                 <br>
-                <h5>
-                    <ul class="list-inline font-weight-bold">
-                        反切：
-                        <p class="custom-control-inline text-danger" th:text="${result.fanqie}"></p>
-                        <br>
-                        声：
-                        <p class="custom-control-inline text-danger" th:text="${result.sheng}"></p>
-                        韵：
-                        <p class="custom-control-inline text-danger" th:text="${result.yun}"></p>
-                        <br>
-                        <p class="d-inline text-danger" th:text="${result.she}"></p>摄
-                        <p class="d-inline text-danger" th:text="${result.kou}"></p>口
-                        <p class="d-inline text-danger" th:text="${result.deng}"></p>等
-                        <p class="d-inline text-danger" th:text="${result.diao}"></p>调
-                        <br>
-                        <br>
-                        注释：
-                        <p class="custom-control-inline text-muted" th:text="${result.zhushi}"></p>
-                    </ul>
-                </h5>
+                <ul class="list-inline font-weight-bold h5">
+                    <div id="subcategory">
+                        <div id="thzy" style="display: none">
+                            唐話類纂擬音：
+                            <p class="custom-control-inline text-danger" th:text="${result.thzyNiyin}"></p>
+                            <br>
+                            唐話類纂標音：
+                            <p class="custom-control-inline text-danger" th:text="${result.thzyBiaoyin}"></p>
+                        </div>
+                        <div id="zej" style="display: none">
+                            自迩集音：
+                            <p class="custom-control-inline text-danger" th:text="${result.zejYin}"></p>
+                            <br>
+                            自迩集韵：
+                            <p class="custom-control-inline text-danger" th:text="${result.zejYun}"></p>
+                            <br>
+                            自迩集声：
+                            <p class="custom-control-inline text-danger" th:text="${result.zejSheng}"></p>
+                        </div>
+                        <div id="xjl" style="display: none">
+                            尋津彔音：
+                            <p class="custom-control-inline text-danger" th:text="${result.xjlYin}"></p>
+                            <br>
+                            尋津彔韻：
+                            <p class="custom-control-inline text-danger" th:text="${result.xjlYun}"></p>
+                            <br>
+                            尋津彔聲：
+                            <p class="custom-control-inline text-danger" th:text="${result.xjlSheng}"></p>
+                        </div>
+                        <div id="hywyjd" style="display: none">
+                            华英音：
+                            <p class="custom-control-inline text-danger" th:text="${result.hywyjdYin}"></p>
+                            <br>
+                            华英韵：
+                            <p class="custom-control-inline text-danger" th:text="${result.hywyjdYun}"></p>
+                            <br>
+                            华英声：
+                            <p class="custom-control-inline text-danger" th:text="${result.hywyjdSheng}"></p>
+                        </div>
+                        <div id="sstj" style="display: none">
+                            四聲通解注音：
+                            <p class="custom-control-inline text-danger" th:text="${result.sstjZhuyin}"></p>
+                            <br>
+                            四聲通解聲調：
+                            <p class="custom-control-inline text-danger" th:text="${result.sstjShengdiao}"></p>
+                            <br>
+                            四聲通解今俗音：
+                            <p class="custom-control-inline text-danger" th:text="${result.sstjJinsuyin}"></p>
+                        </div>
+                    </div>
+                    韵：
+                    <p class="custom-control-inline text-danger" th:text="${templates.get(resultStat.index).yun}"></p>
+                    声：
+                    <p class="custom-control-inline text-danger" th:text="${templates.get(resultStat.index).sheng}"></p>
+                    <br>
+                    摄等开合调：
+                    <p class="d-inline text-danger" th:text="${templates.get(resultStat.index).sdkhd}"></p>
+                    <br>
+                    <br>
+                    中原音：
+                    <p class="custom-control-inline text-danger" th:text="${templates.get(resultStat.index).zyYin}"></p>
+                    中原韵：
+                    <p class="custom-control-inline text-danger" th:text="${templates.get(resultStat.index).zyYun}"></p>
+                    中原声：
+                    <p class="custom-control-inline text-danger" th:text="${templates.get(resultStat.index).zySheng}"></p>
+                    <br>
+<!--                    注释：-->
+<!--                    <p class="custom-control-inline text-muted" th:text="${result.zhushi}"></p>-->
+                </ul>
+
             </div>
         </main>
     </div>
@@ -65,10 +115,29 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" ></script>
-<script type="text/javascript" src="asserts/js/popper.min.js" ></script>
-<script type="text/javascript" src="asserts/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="../../asserts/js/jquery-3.2.1.slim.min.js" ></script>
+<script type="text/javascript" src="../../asserts/js/bootstrap.min.js" ></script>
+<script type="text/javascript">
+    //获取当前URI中最后一部分
+    function GetLastUrlRelativePath()
+    {
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
 
+        var start = arrUrl[1].lastIndexOf("/");
+        //stop省略，截取从start开始到结尾的所有字符
+        var relUrl = arrUrl[1].substring(start + 1);
+
+        if(relUrl.indexOf("?") !== -1){
+            relUrl = relUrl.split("?")[0];
+        }
+        return relUrl;
+    }
+    window.onload = function () {
+        var name = GetLastUrlRelativePath();
+        $("#" + name).css("display", "block");
+    }
+</script>
 
 </body>
 
