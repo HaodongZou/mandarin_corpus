@@ -34,7 +34,10 @@
 
                     <a class="text-light small badge badge-primary" style="font-size: small" href="#" >编号[[${result.id}]]</a>
 <!--                    TODO: 设计跳转到记录所在的页数-->
-                    <a class="text-light small badge badge-secondary" style="font-size: small" href="#" th:href="@{${#httpServletRequest.requestURI}(word=${result.word})}" >在表格中查看</a>
+<!--                       http://localhost:8080/hanwai/$%7B?sheetSearch=true#httpServletRequest.requestURI}(id=${result.id})-->
+
+                    <a class="text-light small badge badge-secondary" style="font-size: small" href="#"
+                       th:href="@{${#httpServletRequest.requestURI} + '?id=' + ${result.id} + '&sheetSearch=true'}" >在表格中查看</a>
                 </h2>
                 <br>
                 <ul class="list-inline font-weight-bold h5">

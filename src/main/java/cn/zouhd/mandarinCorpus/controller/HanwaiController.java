@@ -41,29 +41,104 @@ public class HanwaiController {
 
     @GetMapping("/{abbr}")
     public String searchPage(@PathVariable String abbr,
-                             Model model,
                              @RequestParam @Nullable Integer pageNum,
                              @RequestParam @Nullable String word,
+                             @RequestParam @Nullable Integer id,
+                             @RequestParam @Nullable Boolean sheetSearch,
+                             Model model,
                              HttpServletResponse response){
-        if ((StringUtils.isEmpty(word) && pageNum == null)){
+        if ((StringUtils.isEmpty(word) && pageNum == null && id == null && sheetSearch == null)){
             response.setStatus(400);
             return "error/4xx";
         }
-        List<Subcategory> byNameLike = subcategoryRepo.findByAbbr(abbr);
 
-        //如果参数word为空，pageNum非空
-        if (StringUtils.isEmpty(word) && pageNum != null){
-            if (byNameLike.size() != 1) {
+        // 确定路径对应的目录以及父目录
+        List<Subcategory> byNameLike = subcategoryRepo.findByAbbr(abbr);
+        if (byNameLike.size() != 1) {
+            response.setStatus(400);
+            return "error/4xx";
+        }
+        String subcategory = byNameLike.get(0).getName();
+        String category = byNameLike.get(0).getCategory();
+
+        //从检索结果页面返回查找记录在表中的位置
+        if (sheetSearch != null && sheetSearch){
+            if (id == null){
                 response.setStatus(400);
                 return "error/4xx";
             }
-            model.addAttribute("subcategory", byNameLike.get(0).getName())
-                    .addAttribute("category", byNameLike.get(0).getCategory());
+            // 需要查找的记录
+            Hanwai hanwai = hanwaiRepo.findById(id).orElse(null);
+            if (hanwai == null){
+                response.setStatus(404);
+                return "error/4xx";
+            }
+            Integer searchPageNum = 0;
+            List<Hanwai> findList;
+            pageNum = 1;
+            Pageable pageable = PageRequest.of(pageNum - 1, 15);
+            switch (subcategory){
+                case "语言自迩集" :
+                    do {
+                        findList = hanwaiRepo.findByZejShengNotNullOrZejYinNotNullOrZejYunNotNull(pageable);
+                        pageable = PageRequest.of(++pageNum -1, 15);
+                    }while (!findList.contains(hanwai));
+                    break;
+                case "寻津录" :
+                    do {
+                        findList = hanwaiRepo.findByXjlShengNotNullOrXjlYinNotNullOrXjlYunNotNull(pageable);
+                        pageable = PageRequest.of(++pageNum -1, 15);
+                    }while (!findList.contains(hanwai));
+                    break;
+                case "华英文义津逮" :
+                    do {
+                        findList = hanwaiRepo.findByHywyjdShengNotNullOrHywyjdYinNotNullOrHywyjdYunNotNull(pageable);
+                        pageable = PageRequest.of(++pageNum -1, 15);
+                    }while (!findList.contains(hanwai));
+                    break;
+                case "唐话纂要" :
+                    do {
+                        findList = hanwaiRepo.findByThzyBiaoyinNotNullOrThzyNiyinNotNull(pageable);
+                        pageable = PageRequest.of(++pageNum -1, 15);
+                    }while (!findList.contains(hanwai));
+                    break;
+                case "四声通解" :
+                    do {
+                        findList = hanwaiRepo.findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjZhuyinNotNull(pageable);
+                        pageable = PageRequest.of(++pageNum -1, 15);
+                    }while (!findList.contains(hanwai));
+                    break;
+                case "华英启蒙谚解" :
+                    do {
+                        findList = hanwaiRepo.findByHyqmyjShengNotNullOrHyqmyjYunNotNull(pageable);
+                        pageable = PageRequest.of(++pageNum -1, 15);
+                    }while (!findList.contains(hanwai));
+                    break;
+                default:
+                    response.setStatus(404);
+                    return "error/4xx";
+
+            }
+            pageNum -= 1;
+
+            model.addAttribute("subcategory", subcategory)
+                    .addAttribute("category", category)
+                    .addAttribute("results", findList)
+                    .addAttribute("pageNum", pageNum);
+        }
+
+
+
+        //如果参数word为空，pageNum非空
+        if (StringUtils.isEmpty(word) && pageNum != null){
+
+            model.addAttribute("subcategory", subcategory)
+                    .addAttribute("category", category);
 
             List<Hanwai> notnull;
             Pageable pageable = PageRequest.of(pageNum - 1, 15);
 
-            switch (byNameLike.get(0).getName()){
+            switch (subcategory){
                 case "语言自迩集" :
                     notnull = hanwaiRepo.findByZejShengNotNullOrZejYinNotNullOrZejYunNotNull(pageable);
                     break;
