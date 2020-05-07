@@ -23,19 +23,25 @@
 				<div th:replace="common/common :: sidebar"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h1 class="pb-4 mb-3 border-bottom">发生了[[${#response.status}]]错误</h1>
-					<div th:switch="${#response.status}">
-						<h3 th:case="400">请求参数有误/语义有误，当前请求无法被服务器处理。</h3>
-						<h3 th:case="401">用户未授权。</h3>
-						<h3 th:case="403">拒绝访问。</h3>
-						<h3 th:case="404">请求失败，请求所希望得到的资源未被在服务器上发现。</h3>
-						<h3 th:case="405">请求行中指定的请求方法不能被用于请求相应的资源。</h3>
-						<h3 th:case="408">请求超时。</h3>
-						<h3 th:case="415">对于当前请求的方法和所请求的资源，请求中提交的实体并不是服务器中所支持的格式，因此请求被拒绝。</h3>
-						<h3 th:case="*">未知客户端响应错误。</h3>
+					<div class="media">
+						<img src="/asserts/img/error.png" alt="发生错误" class="mr-0 col-md-4">
+						<div class="container col-md-6 align-self-center">
+							<h1 class="pb-4 mt-0 border-bottom">[[${#response.status}]]错误</h1>
+							<div th:switch="${#response.status}">
+								<h3 th:case="400">请求参数有误/语义有误，当前请求无法被服务器处理。</h3>
+								<h3 th:case="401">用户未授权。</h3>
+								<h3 th:case="403">拒绝访问。</h3>
+								<h3 th:case="404">请求失败，请求所希望得到的资源未在服务器上发现。</h3>
+								<h3 th:case="405">请求行中指定的请求方法不能被用于请求相应的资源。</h3>
+								<h3 th:case="408">请求超时。</h3>
+								<h3 th:case="415">对于当前请求的方法和所请求的资源，请求中提交的实体并不是服务器中所支持的格式，因此请求被拒绝。</h3>
+								<h3 th:case="*" >未知客户端响应错误。</h3>
 
-						<br>
-						<p class="h3">您将在 <span id="time" class="display-4 text-info h3 font-weight-bold">5</span> 秒后自动返回<a class="badge badge-primary text-decoration-none" href="/main">首页</a>。</p>
+								<br>
+								<p class="h3">您将在 <span id="time" class="display-4 text-info h3 font-weight-bold">5</span> 秒后自动返回<a class="badge badge-primary text-decoration-none" href="/main">首页</a>。</p>
+							</div>
+						</div>
+
 					</div>
 				</main>
 			</div>
