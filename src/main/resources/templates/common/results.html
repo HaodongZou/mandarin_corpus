@@ -31,7 +31,7 @@
                 <h2>
                     <span class="badge badge-info" th:text="${resultStat.index} + 1">序号</span>
                     &nbsp;
-                    <a href="#" class="custom-control-inline " th:text="${result.word}" ></a>
+                    <a href="#" class="custom-control-inline " th:href="@{/integrated/word(id=${result.id})}" th:text="${result.word}" ></a>
 
                     <a class="text-light small badge badge-primary" style="font-size: small" href="#" >编号[[${result.id}]]</a>
                     <a class="text-light small badge badge-secondary" style="font-size: small" href="#" th:if="${subcategory} != '综合搜索'"

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052) -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title th:text="${template.word}">单字</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/asserts/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+<div th:replace="common/common :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="common/common :: sidebar"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-0 px-4 float-left">
+            <div class="row bg-white position-fixed container">
+                <div class="container col-4">
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <h1 class="display-2" style="display: inline; font-weight: 500" th:if="${template.word.length()} <= 3" th:text="${template.word}">单字</h1>
+                    <h1 class="display-4" style="display: inline" th:if="${template.word.length()} > 3" th:text="${template.word}">单字</h1>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="text-light small badge badge-primary" style="font-size: small" href="#" >编号[[${template.id}]]</a>
+                </div>
+                <div class="container list-inline font-weight-bold h5 col-8">
+                    <br>
+                    韵：
+                    <p class="custom-control-inline text-danger" th:text="${template.yun}"></p>
+                    声：
+                    <p class="custom-control-inline text-danger" th:text="${template.sheng}"></p>
+                    <br>
+                    摄等开合调：
+                    <p class="d-inline text-danger" th:text="${template.sdkhd}"></p>
+                    <br>
+                    <br>
+                    中原音：
+                    <p class="custom-control-inline text-danger" th:text="${template.zyYin}"></p>
+                    中原韵：
+                    <p class="custom-control-inline text-danger" th:text="${template.zyYun}"></p>
+                    中原声：
+                    <p class="custom-control-inline text-danger" th:text="${template.zySheng}"></p>
+                    <br>
+                </div>
+            </div>
+            <div style="padding-top: 130px" class="position-fixed container">
+                <hr>
+            </div>
+            <div style="padding-top: 150px" class="container">
+                <br>
+                <br>
+                <div class="container">
+                    <h1 class="display-4">官话韵书韵图</h1>
+                    <div class="container" th:if="${yunshu.jyzhDiao} != null or ${yunshu.jyzhYun} != null or ${yunshu.jyzhSheng} != null">
+                        <br>
+                        <h3>京音字汇</h3>
+                        <br>
+                        <div class="font-weight-bold h5">
+                            京音字彙調：
+                            <p class="custom-control-inline text-danger" th:text="${yunshu.jyzhDiao}"></p>
+                            京音字彙韻：
+                            <p class="custom-control-inline text-danger" th:text="${yunshu.jyzhYun}"></p>
+                            京音字彙聲：
+                            <p class="custom-control-inline text-danger" th:text="${yunshu.jyzhSheng}"></p>
+                        </div>
+                    </div>
+                    <div class="container" th:if="${yunshu.gycyzhYin} != null or ${yunshu.gycyzhYun} != null or ${yunshu.gycyzhSheng} != null">
+                        <br>
+                        <h3>国音常用字汇</h3>
+                        <br>
+                        <div class="font-weight-bold h5">
+                            字彙音：
+                            <p class="custom-control-inline text-danger" th:text="${yunshu.gycyzhYin}"></p>
+                            字彙韵：
+                            <p class="custom-control-inline text-danger" th:text="${yunshu.gycyzhYun}"></p>
+                            字彙声：
+                            <p class="custom-control-inline text-danger" th:text="${yunshu.gycyzhSheng}"></p>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <br>
+                <div class="container">
+                    <h1 class="display-4">官话汉外译音</h1>
+                    <div class="container" th:if="${hanwai.hyqmyjYun} != null or ${hanwai.hyqmyjSheng} != null">
+                        <br>
+                        <h3>华英启蒙谚解</h3>
+                        <br>
+                        <div class="font-weight-bold h5" >
+                            華英啟蒙諺解韻：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.hyqmyjYun}"></p>
+                            華英啟蒙諺解聲：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.hyqmyjSheng}"></p>
+                        </div>
+                    </div>
+                    <div class="container" th:if="${hanwai.thzyBiaoyin} != null or ${hanwai.thzyNiyin} != null">
+                        <br>
+                        <h3>唐话纂要</h3>
+                        <br>
+                        <div class="font-weight-bold h5" >
+                            唐話類纂擬音：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.thzyNiyin}"></p>
+                            唐話類纂標音：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.thzyBiaoyin}"></p>
+                        </div>
+                    </div>
+                    <div class="container" th:if="${hanwai.zejYin} != null or ${hanwai.zejYun} != null or ${hanwai.zejSheng} != null">
+                        <br>
+                        <h3>语言自迩集</h3>
+                        <br>
+                        <div class="font-weight-bold h5" >
+                            自迩集音：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.zejYin}"></p>
+                            自迩集韵：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.zejYun}"></p>
+                            自迩集声：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.zejSheng}"></p>
+                        </div>
+                    </div>
+                    <div class="container" th:if="${hanwai.xjlSheng} != null or ${hanwai.xjlYun} != null or ${hanwai.xjlYin} != null">
+                        <br>
+                        <h3>寻津录</h3>
+                        <br>
+                        <div class="font-weight-bold h5" >
+                            尋津彔音：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.xjlYin}"></p>
+                            尋津彔韻：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.xjlYun}"></p>
+                            尋津彔聲：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.xjlSheng}"></p>
+                        </div>
+                    </div>
+                    <div class="container" th:if="${hanwai.hywyjdYin} != null or ${hanwai.hywyjdYun} != null or ${hanwai.hywyjdSheng} != null">
+                        <br>
+                        <h3>华英文义津逮</h3>
+                        <br>
+                        <div class="font-weight-bold h5" >
+                            华英音：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.hywyjdYin}"></p>
+                            华英韵：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.hywyjdYun}"></p>
+                            华英声：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.hywyjdSheng}"></p>
+                        </div>
+                    </div>
+                    <div class="container" th:if="${hanwai.sstjShengdiao} != null or ${hanwai.sstjBeizhu} != null or ${hanwai.sstjJinsuyin} != null">
+                        <br>
+                        <h3>四声通解</h3>
+                        <br>
+                        <div class="font-weight-bold h5" >
+                            四聲通解今俗音：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.sstjJinsuyin}"></p>
+                            四聲通解聲調：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.sstjShengdiao}"></p>
+                            四聲通解备注：
+                            <p class="custom-control-inline text-danger" th:text="${hanwai.sstjBeizhu}"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="../../asserts/js/jquery-3.2.1.slim.min.js" ></script>
+<script type="text/javascript" src="../../asserts/js/bootstrap.min.js" ></script>
+<script type="text/javascript">
+    //获取当前URI中最后一部分
+    function GetLastUrlRelativePath()
+    {
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+
+        var start = arrUrl[1].lastIndexOf("/");
+        //stop省略，截取从start开始到结尾的所有字符
+        var relUrl = arrUrl[1].substring(start + 1);
+
+        if(relUrl.indexOf("?") !== -1){
+            relUrl = relUrl.split("?")[0];
+        }
+        return relUrl;
+    }
+    window.onload = function () {
+        var name = GetLastUrlRelativePath();
+        $("div." + name).css("display", "block");
+    }
+</script>
+
+</body>
+
+</html>

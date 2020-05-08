@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface TemplateRepo extends JpaRepository<Template, Integer> {
 
-    List<Template> findByWord (String word);
+    List<Template> findByWordLike (String word);
 
 }
