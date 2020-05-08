@@ -33,7 +33,7 @@
                     &nbsp;
                     <a href="#" class="custom-control-inline " th:href="@{/integrated/word(id=${result.id})}" th:text="${result.word}" ></a>
 
-                    <a class="text-light small badge badge-primary" style="font-size: small" href="#" >编号[[${result.id}]]</a>
+                    <a class="text-light small badge badge-primary" style="font-size: small" href="javascript:void (0)" >编号[[${result.id}]]</a>
                     <a class="text-light small badge badge-secondary" style="font-size: small" href="#" th:if="${subcategory} != '综合搜索'"
                        th:href="@{${#httpServletRequest.requestURI} + '?id=' + ${result.id} + '&sheetSearch=true'}" >在表格中查看</a>
                 </h2>
