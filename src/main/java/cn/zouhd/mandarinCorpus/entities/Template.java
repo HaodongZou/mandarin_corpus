@@ -21,34 +21,34 @@ public class Template {
      *  Id.
      */
     @Id
-    Integer id;
+    private Integer id;
 
     /**
      *  Word.
      */
-    String word;
+    private String word;
     /**
      *  摄等开合调.
      */
-    String sdkhd;
+    private String sdkhd;
     /**
      *  韵.
      */
-    String yun;
+    private String yun;
     /**
      *  声.
      */
-    String sheng;
+    private String sheng;
     /**
      *  中原 音.
      */
-    String zyYin;
+    private String zyYin;
     /**
      *  中原 韵.
      */
-    String zyYun;
+    private String zyYun;
     /**
      *  中原 声.
      */
-    String zySheng;
+    private String zySheng;
 }

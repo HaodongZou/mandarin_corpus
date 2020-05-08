@@ -39,15 +39,43 @@
                 </h2>
                 <br>
                 <ul class="list-inline font-weight-bold h5">
-                    <div class="subcategory">
-                        <div class="thzy" style="display: none">
+                    <div>
+                        <div th:if="${subcategory} == '京音字汇'">
+                            京音字彙調：
+                            <p class="custom-control-inline text-danger" th:text="${result.jyzhDiao}"></p>
+                            <br>
+                            京音字彙韻：
+                            <p class="custom-control-inline text-danger" th:text="${result.jyzhYun}"></p>
+                            <br>
+                            京音字彙聲：
+                            <p class="custom-control-inline text-danger" th:text="${result.jyzhSheng}"></p>
+                        </div>
+                        <div th:if="${subcategory} == '国音常用字汇'">
+                            字彙音：
+                            <p class="custom-control-inline text-danger" th:text="${result.gycyzhYin}"></p>
+                            <br>
+                            字彙韵：
+                            <p class="custom-control-inline text-danger" th:text="${result.gycyzhYun}"></p>
+                            <br>
+                            字彙声：
+                            <p class="custom-control-inline text-danger" th:text="${result.gycyzhSheng}"></p>
+                        </div>
+                        <div th:if="${subcategory} == '华英启蒙谚解'">
+                            華英啟蒙諺解韻：
+                            <p class="custom-control-inline text-danger" th:text="${result.hyqmyjYun}"></p>
+                            <br>
+                            華英啟蒙諺解聲：
+                            <p class="custom-control-inline text-danger" th:text="${result.hyqmyjSheng}"></p>
+                        </div>
+
+                        <div th:if="${subcategory} == '唐话纂要'">
                             唐話類纂擬音：
                             <p class="custom-control-inline text-danger" th:text="${result.thzyNiyin}"></p>
                             <br>
                             唐話類纂標音：
                             <p class="custom-control-inline text-danger" th:text="${result.thzyBiaoyin}"></p>
                         </div>
-                        <div class="zej" style="display: none">
+                        <div th:if="${subcategory} == '语言自迩集'">
                             自迩集音：
                             <p class="custom-control-inline text-danger" th:text="${result.zejYin}"></p>
                             <br>
@@ -57,7 +85,7 @@
                             自迩集声：
                             <p class="custom-control-inline text-danger" th:text="${result.zejSheng}"></p>
                         </div>
-                        <div class="xjl" style="display: none">
+                        <div th:if="${subcategory} == '寻津录'">
                             尋津彔音：
                             <p class="custom-control-inline text-danger" th:text="${result.xjlYin}"></p>
                             <br>
@@ -67,7 +95,7 @@
                             尋津彔聲：
                             <p class="custom-control-inline text-danger" th:text="${result.xjlSheng}"></p>
                         </div>
-                        <div class="hywyjd" style="display: none">
+                        <div th:if="${subcategory} == '华英文义津逮'">
                             华英音：
                             <p class="custom-control-inline text-danger" th:text="${result.hywyjdYin}"></p>
                             <br>
@@ -77,7 +105,7 @@
                             华英声：
                             <p class="custom-control-inline text-danger" th:text="${result.hywyjdSheng}"></p>
                         </div>
-                        <div class="sstj" style="display: none">
+                        <div th:if="${subcategory} == '四声通解'">
                             四聲通解今俗音：
                             <p class="custom-control-inline text-danger" th:text="${result.sstjJinsuyin}"></p>
                             <br>

@@ -36,6 +36,49 @@
 
             <br>
             <div class="table-responsive text-center" th:switch="${subcategory}">
+                <table class="table text-nowrap table-hover table-bordered table-sm" th:case="京音字汇">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>字</th>
+                        <th>京音字彙調</th>
+                        <th>京音字彙韻</th>
+                        <th>京音字彙聲</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.id}"></td>
+                        <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
+                        <td th:text="${result.jyzhDiao}"></td>
+                        <td th:text="${result.jyzhYun}"></td>
+                        <td th:text="${result.jyzhSheng}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table text-nowrap table-hover table-bordered table-sm" th:case="国音常用字汇">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>字</th>
+                        <th>字彙音</th>
+                        <th>字彙韵</th>
+                        <th>字彙声</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.id}"></td>
+                        <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
+                        <td th:text="${result.gycyzhYin}"></td>
+                        <td th:text="${result.gycyzhYun}"></td>
+                        <td th:text="${result.gycyzhSheng}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
                 <table class="table text-nowrap table-hover table-bordered table-sm" th:case="语言自迩集">
                     <thead>
                         <tr>
@@ -52,8 +95,8 @@
                         <td th:text="${result.id}"></td>
                         <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
                         <td th:text="${result.zejYin}"></td>
-                        <td th:text="${result.zejYin}"></td>
                         <td th:text="${result.zejYun}"></td>
+                        <td th:text="${result.zejSheng}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -136,6 +179,25 @@
                         <td th:text="${result.sstjJinsuyin}"></td>
                         <td th:text="${result.sstjShengdiao}"></td>
                         <td th:text="${result.sstjBeizhu}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table text-nowrap table-hover table-bordered table-sm" th:case="华英启蒙谚解">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>字</th>
+                        <th>華英啟蒙諺解韻</th>
+                        <th>華英啟蒙諺解聲</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.id}"></td>
+                        <td ><a href="#" th:href="@{${#httpServletRequest.requestURI} + '?word=' + ${result.word}}" th:text="${result.word}"></a></td>
+                        <td th:text="${result.hyqmyjYun}"></td>
+                        <td th:text="${result.hyqmyjSheng}"></td>
                     </tr>
                     </tbody>
                 </table>

@@ -1,45 +1,54 @@
 package cn.zouhd.mandarinCorpus.entities;
 
 import lombok.Data;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 韵书韵图模块.
+ *
+ * @author zouhd
+ * @date 2020 -05-08 11:45:46
+ */
 @Entity
 @Table(name = "corpus_yunshu")
 @Data
 public class Yunshu {
 
+    /**
+     *  Id.
+     */
     @Id
     private Integer id;
+
+    /**
+     *  字.
+     */
     private String word;
-    private String y1602;
-    private String y1611;
-    private String y1661t1670;
-    private String y1711;
-    private String y1674;
-    private String y1699t1704;
-    private String y1726;
-    private String qianLongWanNian;
-    private String y1805;
-    private String y1817;
-    private String y1805t1858;
-    private String y1840;
-    private String y1863;
-    private String y1912;
-    private String y1921;
-//    private String y1581;
-//    private String y1603;
-//    private String y1632;
-//    private String y1776;
-//    private String y1642;
-//    private String y1739;
-//    private String y1849;
-//    private String y1587;
-//    private String y1921;
-//    private String y1921;
-//    private String y1921;
-//    private String y1921;
+    /**
+     * 京音字汇 声.
+     */
+    private String jyzhSheng;
+    /**
+     * 京音字汇 调.
+     */
+    private String jyzhDiao;
+    /**
+     * 京音字汇 韵.
+     */
+    private String jyzhYun;
+    /**
+     *  国音常用字汇 声.
+     */
+    private String gycyzhSheng;
+    /**
+     *  国音常用字汇 音.
+     */
+    private String gycyzhYin;
+    /**
+     *  国音常用字汇 韵.
+     */
+    private String gycyzhYun;
 
 }

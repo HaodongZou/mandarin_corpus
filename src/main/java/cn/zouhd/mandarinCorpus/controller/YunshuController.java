@@ -1,18 +1,30 @@
 package cn.zouhd.mandarinCorpus.controller;
 
+import cn.zouhd.mandarinCorpus.entities.Subcategory;
+import cn.zouhd.mandarinCorpus.entities.Template;
 import cn.zouhd.mandarinCorpus.entities.Yunshu;
-import cn.zouhd.mandarinCorpus.repositories.GuangyunRepo;
+import cn.zouhd.mandarinCorpus.repositories.SubcategoryRepo;
+import cn.zouhd.mandarinCorpus.repositories.TemplateRepo;
 import cn.zouhd.mandarinCorpus.repositories.YunshuRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,80 +33,162 @@ import java.util.List;
 @Controller
 @RequestMapping("/yunshu")
 public class YunshuController {
-
-
-    private final YunshuRepo yunshuRepo;
-    private final GuangyunRepo guangyunRepo;
-    private Logger logger = LoggerFactory.getLogger(getClass());
-
+    
     @Autowired
-    public YunshuController(YunshuRepo yunshuRepo, GuangyunRepo guangyunRepo) {
-        this.yunshuRepo = yunshuRepo;
-        this.guangyunRepo = guangyunRepo;
-    }
+    SubcategoryRepo subcategoryRepo;
+    
+    @Autowired
+    TemplateRepo templateRepo;
+    
+    @Autowired
+    YunshuRepo yunshuRepo;
 
-    @GetMapping
-    public String yunshuPage(Model model){
-        model.addAttribute("activeUrl", "yunshuPage");
-        List<Yunshu> all = yunshuRepo.findAll();
-        model.addAttribute("results", all);
-        return "yunshu/yunshu";
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    }
-
-    @GetMapping("/results")
-    public String results(@RequestParam String yunshuSearch, Model model){
-        model.addAttribute("activeUrl", "yunshuPage");
-        StringUtils.trimAllWhitespace(yunshuSearch);
-        if (StringUtils.isEmpty(yunshuSearch)){
-            model.addAttribute("msg", "请输入要查询的文字或ID");
-            return "yunshu/yunshu";
+    @GetMapping("/{abbr}")
+    public String searchPage(@PathVariable String abbr,
+                             @RequestParam @Nullable Integer pageNum,
+                             @RequestParam @Nullable String word,
+                             @RequestParam @Nullable Integer id,
+                             @RequestParam @Nullable Boolean sheetSearch,
+                             Model model,
+                             HttpServletResponse response){
+        if ((StringUtils.isEmpty(word) && pageNum == null && id == null && sheetSearch == null)){
+            response.setStatus(400);
+            return "error/4xx";
         }
 
-//        判断搜索内容是否为数字ID
-        if (yunshuSearch.matches("[0-9]+")){
-            Yunshu result = yunshuRepo.findById(Integer.valueOf(yunshuSearch)).orElse(null);
-            if (result == null){
-                model.addAttribute("msg", "查询不到结果");
-                return "yunshu/yunshu";
+        // 确定路径对应的目录以及父目录
+        List<Subcategory> byNameLike = subcategoryRepo.findByAbbr(abbr);
+        if (byNameLike.size() != 1) {
+            response.setStatus(400);
+            return "error/4xx";
+        }
+        String subcategory = byNameLike.get(0).getName();
+        String category = byNameLike.get(0).getCategory();
+
+        //从检索结果页面返回查找记录在表中的位置
+        if (sheetSearch != null && sheetSearch){
+            if (id == null){
+                response.setStatus(400);
+                return "error/4xx";
             }
-            model.addAttribute("results", result);
-            return "yunshu/yunshu";
+            // 需要查找的记录
+            Yunshu yunshu = yunshuRepo.findById(id).orElse(null);
+            if (yunshu == null){
+                response.setStatus(404);
+                return "error/4xx";
+            }
+            Integer searchPageNum = 0;
+            List<Yunshu> findList;
+            pageNum = 1;
+            Pageable pageable = PageRequest.of(pageNum - 1, 15);
+            switch (subcategory){
+                case "国音常用字汇" :
+                    do {
+                        findList = yunshuRepo.findByGycyzhShengNotNullOrGycyzhYunNotNullOrGycyzhYinNotNull(pageable);
+                        pageable = PageRequest.of(++pageNum -1, 15);
+                    }while (!findList.contains(yunshu));
+                    break;
+                case "京音字汇" :
+                    do {
+                        findList = yunshuRepo.findByJyzhDiaoNotNullOrJyzhShengNotNullOrJyzhYunNotNull(pageable);
+                        pageable = PageRequest.of(++pageNum -1, 15);
+                    }while (!findList.contains(yunshu));
+                    break;
+                default:
+                    response.setStatus(404);
+                    return "error/4xx";
+
+            }
+            pageNum -= 1;
+
+            model.addAttribute("subcategory", subcategory)
+                    .addAttribute("category", category)
+                    .addAttribute("results", findList)
+                    .addAttribute("pageNum", pageNum);
+
+            return "common/search";
         }
-//        不是数字ID则搜索字符
-        String searchLike = "%" + yunshuSearch + "%";
-        List<Yunshu> results = yunshuRepo.findByWordLike(searchLike);
-        if (results == null || results.size() == 0){
-            model.addAttribute("msg", "查询不到结果");
-            return "yunshu/yunshu";
+
+
+
+        //如果参数word为空，pageNum非空
+        if (StringUtils.isEmpty(word) && pageNum != null){
+
+            model.addAttribute("subcategory", subcategory)
+                    .addAttribute("category", category);
+
+            List<Yunshu> notnull;
+            Pageable pageable = PageRequest.of(pageNum - 1, 15);
+
+            switch (subcategory){
+                case "国音常用字汇" :
+                    notnull = yunshuRepo.findByGycyzhShengNotNullOrGycyzhYunNotNullOrGycyzhYinNotNull(pageable);
+                    break;
+                case "京音字汇" :
+                    notnull = yunshuRepo.findByJyzhDiaoNotNullOrJyzhShengNotNullOrJyzhYunNotNull(pageable);
+                    break;
+                default:
+                    response.setStatus(404);
+                    return "error/4xx";
+
+            }
+
+            model.addAttribute("results", notnull)
+                    .addAttribute("pageNum", pageNum);
+
+
+            return "common/search";
         }
-        model.addAttribute("results", results);
-        return "yunshu/yunshu";
+
+        //当word不为空（无论pageNum是否为空）
+        Yunshu yunshu = new Yunshu();
+        yunshu.setWord(word);
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("word",
+                        ExampleMatcher.GenericPropertyMatcher
+                                .of(ExampleMatcher.StringMatcher.CONTAINING));
+        Example<Yunshu> example = Example.of(yunshu, matcher);
+        List<Yunshu> results = yunshuRepo.findAll(example);
+        List<Template> templates = new ArrayList<>();
+        Iterator<Yunshu> iterator = results.iterator();
+        switch (subcategory){
+            case "国音常用字汇" :
+                while (iterator.hasNext()) {
+                    Yunshu result = iterator.next();
+                    if (result.getGycyzhSheng() == null && result.getGycyzhYin() == null && result.getGycyzhYun() == null){
+                        iterator.remove();
+                    }else{
+                        Template template = templateRepo.findById(result.getId()).orElse(null);
+                        templates.add(template);
+                    }
+                }
+                break;
+            case "京音字汇" :
+                while (iterator.hasNext()) {
+                    Yunshu result = iterator.next();
+                    if (result.getJyzhDiao() == null && result.getJyzhSheng() == null && result.getGycyzhYin() == null){
+                        iterator.remove();
+                    }else{
+                        Template template = templateRepo.findById(result.getId()).orElse(null);
+                        templates.add(template);
+                    }
+                }
+                break;
+            default:
+                response.setStatus(404);
+                return "error/4xx";
+
+        }
+
+        model.addAttribute("results", results)
+                .addAttribute("templates",templates)
+                .addAttribute("subcategory", subcategory)
+                .addAttribute("category", category);
+        return "common/results";
+
+
+
     }
-
-//    @GetMapping("/guangyuns")
-//    public String guangyunsPage(@RequestParam Integer pageNum, Model model){
-////        Guangyun guangyunList = guangyunRepo.findById(1).orElse(null);
-//        PageRequest pageRequest = PageRequest.of(pageNum - 1, 15);
-//        List<Guangyun> guangyunList = guangyunRepo.findAll(pageRequest).toList();
-//        model.addAttribute("results", guangyunList)
-//                .addAttribute("pageNum", pageNum);
-//
-//        return "zhonggu/guangyun";
-//    }
-//
-//    @GetMapping("/guangyun")
-//    public String guangyun(@RequestParam() String word, Model model){
-//        String wordLike = "%" + word + "%";
-//        List<Guangyun> byWordLike = guangyunRepo.findByWordLike(wordLike);
-//        for (Guangyun guangyun : byWordLike) {
-//            while(guangyun.getZhushi().contains("上同")){
-//                guangyun.setZhushi(guangyunRepo.findById(guangyun.getId() - 1).orElse(null).getZhushi());
-//            }
-//        }
-//        model.addAttribute("results", byWordLike);
-//        return "searchResult";
-//    }
-
-
 }

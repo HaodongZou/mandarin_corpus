@@ -21,75 +21,75 @@ public class Hanwai {
      *  Id.
      */
     @Id
-    Integer id;
+    private Integer id;
 
     /**
      * 单字.
      */
-    String word;
+    private String word;
 
     /**
      *  自迩集 音.
      */
-    String zejYin;
+    private String zejYin;
     /**
      *  自迩集 韵.
      */
-    String zejYun;
+    private String zejYun;
     /**
      *  自迩集 声.
      */
-    String zejSheng;
+    private String zejSheng;
     /**
      *  尋津彔 音.
      */
-    String xjlYin;
+    private String xjlYin;
     /**
      *  尋津彔 韵.
      */
-    String xjlYun;
+    private String xjlYun;
     /**
      *  尋津彔 声.
      */
-    String xjlSheng;
+    private String xjlSheng;
     /**
      *  华英音(华英文义津逮) 音.
      */
-    String hywyjdYin;
+    private String hywyjdYin;
     /**
      *  华英音(华英文义津逮) 韵.
      */
-    String hywyjdYun;
+    private String hywyjdYun;
     /**
      *  华英音(华英文义津逮) 声.
      */
-    String hywyjdSheng;
+    private String hywyjdSheng;
     /**
      *  唐話類纂 拟音.
      */
-    String thzyNiyin;
+    private String thzyNiyin;
     /**
      *  唐話類纂 标音.
      */
-    String thzyBiaoyin;
+    private String thzyBiaoyin;
     /**
      *  四聲通解 备注.
      */
-    String sstjBeizhu;
+    private String sstjBeizhu;
     /**
      *  四聲通解 声调.
      */
-    String sstjShengdiao;
+    private String sstjShengdiao;
     /**
      *  四聲通解 今俗音.
      */
-    String sstjJinsuyin;
+    private String sstjJinsuyin;
     /**
      *  華英啟蒙諺解 韵.
      */
-    String hyqmyjYun;
+    private String hyqmyjYun;
     /**
      *  華英啟蒙諺解 声.
      */
-    String hyqmyjSheng;
+    private String hyqmyjSheng;
 }

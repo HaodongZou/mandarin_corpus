@@ -126,6 +126,7 @@ public class HanwaiController {
                     .addAttribute("category", category)
                     .addAttribute("results", findList)
                     .addAttribute("pageNum", pageNum);
+            return "common/search";
         }
 
 
@@ -259,6 +260,7 @@ public class HanwaiController {
                 .addAttribute("templates",templates)
                 .addAttribute("subcategory", subcategory)
                 .addAttribute("category", category);
+        System.out.println(model.toString());
         return "common/results";
 
 

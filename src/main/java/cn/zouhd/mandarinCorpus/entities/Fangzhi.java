@@ -13,8 +13,8 @@ import javax.persistence.Table;
 public class Fangzhi {
 
     @Id
-    Integer id;
-    //TODO: 有待修改方志数据库
+    private Integer id;
+    //TODO: 有待修改方志数据库，添加各自对应的URI等。。
     @Column(name = "fangzhi")
-    String name;
+    private String name;
 }
