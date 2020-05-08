@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -180,9 +181,78 @@ public class HanwaiController {
         Example<Hanwai> example = Example.of(hanwai, matcher);
         List<Hanwai> results = hanwaiRepo.findAll(example);
         List<Template> templates = new ArrayList<>();
-        for (Hanwai result : results) {
-            Template template = templateRepo.findById(result.getId()).orElse(null);
-            templates.add(template);
+        Iterator<Hanwai> iterator = results.iterator();
+        switch (subcategory){
+            case "语言自迩集" :
+                while (iterator.hasNext()) {
+                    Hanwai result = iterator.next();
+                    if (result.getZejSheng() == null && result.getZejYin() == null && result.getZejYun() == null){
+                        iterator.remove();
+                    }else{
+                        Template template = templateRepo.findById(result.getId()).orElse(null);
+                        templates.add(template);
+                    }
+                }
+                break;
+            case "寻津录" :
+                while (iterator.hasNext()) {
+                    Hanwai result = iterator.next();
+                    if (result.getXjlSheng() == null && result.getXjlYin() == null && result.getXjlYun() == null){
+                        iterator.remove();
+                    }else{
+                        Template template = templateRepo.findById(result.getId()).orElse(null);
+                        templates.add(template);
+                    }
+                }
+                break;
+            case "华英文义津逮" :
+                while (iterator.hasNext()) {
+                    Hanwai result = iterator.next();
+                    if (result.getHywyjdSheng() == null && result.getHywyjdYin() == null && result.getHywyjdYun() == null){
+                        iterator.remove();
+                    }else{
+                        Template template = templateRepo.findById(result.getId()).orElse(null);
+                        templates.add(template);
+                    }
+                }
+                break;
+            case "唐话纂要" :
+                while (iterator.hasNext()) {
+                    Hanwai result = iterator.next();
+                    if (result.getThzyBiaoyin() == null && result.getThzyNiyin() == null){
+                        iterator.remove();
+                    }else{
+                        Template template = templateRepo.findById(result.getId()).orElse(null);
+                        templates.add(template);
+                    }
+                }
+                break;
+            case "四声通解" :
+                while (iterator.hasNext()) {
+                    Hanwai result = iterator.next();
+                    if (result.getSstjJinsuyin() == null && result.getSstjShengdiao() == null && result.getSstjBeizhu() == null){
+                        iterator.remove();
+                    }else{
+                        Template template = templateRepo.findById(result.getId()).orElse(null);
+                        templates.add(template);
+                    }
+                }
+                break;
+            case "华英启蒙谚解" :
+                while (iterator.hasNext()) {
+                    Hanwai result = iterator.next();
+                    if (result.getHyqmyjSheng() == null && result.getHyqmyjYun() == null){
+                        iterator.remove();
+                    }else{
+                        Template template = templateRepo.findById(result.getId()).orElse(null);
+                        templates.add(template);
+                    }
+                }
+                break;
+            default:
+                response.setStatus(404);
+                return "error/4xx";
+
         }
 
         model.addAttribute("results", results)
