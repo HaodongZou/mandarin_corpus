@@ -25,7 +25,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <h1 style="display: inline">检索结果</h1>&nbsp;&nbsp;&nbsp;&nbsp;
             <p class="text-muted badge badge-light" style="font-size: large" th:text="${subcategory}"></p>&nbsp;&nbsp;&nbsp;&nbsp;
-            <p class="custom-control-inline text-info font-weight-bold" >共[[${results.size()}]]条结果</p>
+            <p class="custom-control-inline text-info font-weight-bold"  >共[[${results.size()}]]条结果</p>
             <hr>
             <div class="container" th:each="result:${results}">
                 <h2>
@@ -34,7 +34,7 @@
                     <a href="#" class="custom-control-inline " th:text="${result.word}" ></a>
 
                     <a class="text-light small badge badge-primary" style="font-size: small" href="#" >编号[[${result.id}]]</a>
-                    <a class="text-light small badge badge-secondary" style="font-size: small" href="#"
+                    <a class="text-light small badge badge-secondary" style="font-size: small" href="#" th:if="${subcategory} != '综合搜索'"
                        th:href="@{${#httpServletRequest.requestURI} + '?id=' + ${result.id} + '&sheetSearch=true'}" >在表格中查看</a>
                 </h2>
                 <br>
