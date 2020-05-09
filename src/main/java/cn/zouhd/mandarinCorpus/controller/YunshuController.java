@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -52,7 +53,8 @@ public class YunshuController {
                              @RequestParam @Nullable Integer id,
                              @RequestParam @Nullable Boolean sheetSearch,
                              Model model,
-                             HttpServletResponse response){
+                             HttpServletResponse response,
+                             HttpServletRequest request){
         if ((StringUtils.isEmpty(word) && pageNum == null && id == null && sheetSearch == null)){
             response.setStatus(400);
             return "error/4xx";
@@ -68,47 +70,36 @@ public class YunshuController {
         String category = byNameLike.get(0).getCategory();
 
         //从检索结果页面返回查找记录在表中的位置
-        if (sheetSearch != null && sheetSearch){
-            if (id == null){
-                response.setStatus(400);
-                return "error/4xx";
-            }
-            // 需要查找的记录
-            Yunshu yunshu = yunshuRepo.findById(id).orElse(null);
-            if (yunshu == null){
-                response.setStatus(404);
-                return "error/4xx";
-            }
-            Integer searchPageNum = 0;
-            List<Yunshu> findList;
-            pageNum = 1;
-            Pageable pageable = PageRequest.of(pageNum - 1, 15);
-            switch (subcategory){
-                case "国音常用字汇" :
-                    do {
-                        findList = yunshuRepo.findByGycyzhShengNotNullOrGycyzhYunNotNullOrGycyzhYinNotNull(pageable);
-                        pageable = PageRequest.of(++pageNum -1, 15);
-                    }while (!findList.contains(yunshu));
-                    break;
-                case "京音字汇" :
-                    do {
-                        findList = yunshuRepo.findByJyzhDiaoNotNullOrJyzhShengNotNullOrJyzhYunNotNull(pageable);
-                        pageable = PageRequest.of(++pageNum -1, 15);
-                    }while (!findList.contains(yunshu));
-                    break;
-                default:
+        String sheetFlag = (String) request.getAttribute("sheetFlag");
+        if ( !"no".equals(sheetFlag)) {
+            if (sheetSearch != null && sheetSearch) {
+                if (id == null) {
+                    response.setStatus(400);
+                    return "error/4xx";
+                }
+                // 需要查找的记录
+                Yunshu yunshu = yunshuRepo.findById(id).orElse(null);
+                if (yunshu == null) {
                     response.setStatus(404);
                     return "error/4xx";
+                }
+                switch (subcategory) {
+                    case "国音常用字汇":
+                        pageNum = (yunshuRepo.findGycyzhPage(id) - 1) / 15 + 1;
+                        break;
+                    case "京音字汇":
+                        pageNum = (yunshuRepo.findJyzhPage(id) - 1) / 15 + 1;
+                        break;
+                    default:
+                        response.setStatus(404);
+                        return "error/4xx";
 
+                }
+
+                request.setAttribute("sheetFlag", "no");
+
+                return "forward:/yunshu/" + abbr + "?pageNum=" + pageNum;
             }
-            pageNum -= 1;
-
-            model.addAttribute("subcategory", subcategory)
-                    .addAttribute("category", category)
-                    .addAttribute("results", findList)
-                    .addAttribute("pageNum", pageNum);
-
-            return "common/search";
         }
 
 

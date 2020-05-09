@@ -6,6 +6,8 @@ import cn.zouhd.mandarinCorpus.entities.Template;
 import cn.zouhd.mandarinCorpus.repositories.HanwaiRepo;
 import cn.zouhd.mandarinCorpus.repositories.SubcategoryRepo;
 import cn.zouhd.mandarinCorpus.repositories.TemplateRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,6 +43,9 @@ public class HanwaiController {
     @Autowired
     HanwaiRepo hanwaiRepo;
 
+
+    Logger logger = LoggerFactory.getLogger(getClass());
+
     @GetMapping("/{abbr}")
     public String searchPage(@PathVariable String abbr,
                              @RequestParam @Nullable Integer pageNum,
@@ -47,7 +53,8 @@ public class HanwaiController {
                              @RequestParam @Nullable Integer id,
                              @RequestParam @Nullable Boolean sheetSearch,
                              Model model,
-                             HttpServletResponse response){
+                             HttpServletResponse response,
+                             HttpServletRequest request){
         if ((StringUtils.isEmpty(word) && pageNum == null && id == null && sheetSearch == null)){
             response.setStatus(400);
             return "error/4xx";
@@ -63,71 +70,51 @@ public class HanwaiController {
         String category = byNameLike.get(0).getCategory();
 
         //从检索结果页面返回查找记录在表中的位置
-        if (sheetSearch != null && sheetSearch){
-            if (id == null){
-                response.setStatus(400);
-                return "error/4xx";
-            }
-            // 需要查找的记录
-            Hanwai hanwai = hanwaiRepo.findById(id).orElse(null);
-            if (hanwai == null){
-                response.setStatus(404);
-                return "error/4xx";
-            }
-            Integer searchPageNum = 0;
-            List<Hanwai> findList;
-            pageNum = 1;
-            Pageable pageable = PageRequest.of(pageNum - 1, 15);
-            switch (subcategory){
-                case "语言自迩集" :
-                    do {
-                        findList = hanwaiRepo.findByZejShengNotNullOrZejYinNotNullOrZejYunNotNull(pageable);
-                        pageable = PageRequest.of(++pageNum -1, 15);
-                    }while (!findList.contains(hanwai));
-                    break;
-                case "寻津录" :
-                    do {
-                        findList = hanwaiRepo.findByXjlShengNotNullOrXjlYinNotNullOrXjlYunNotNull(pageable);
-                        pageable = PageRequest.of(++pageNum -1, 15);
-                    }while (!findList.contains(hanwai));
-                    break;
-                case "华英文义津逮" :
-                    do {
-                        findList = hanwaiRepo.findByHywyjdShengNotNullOrHywyjdYinNotNullOrHywyjdYunNotNull(pageable);
-                        pageable = PageRequest.of(++pageNum -1, 15);
-                    }while (!findList.contains(hanwai));
-                    break;
-                case "唐话纂要" :
-                    do {
-                        findList = hanwaiRepo.findByThzyBiaoyinNotNullOrThzyNiyinNotNull(pageable);
-                        pageable = PageRequest.of(++pageNum -1, 15);
-                    }while (!findList.contains(hanwai));
-                    break;
-                case "四声通解" :
-                    do {
-                        findList = hanwaiRepo.findBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjBeizhuNotNull(pageable);
-                        pageable = PageRequest.of(++pageNum -1, 15);
-                    }while (!findList.contains(hanwai));
-                    break;
-                case "华英启蒙谚解" :
-                    do {
-                        findList = hanwaiRepo.findByHyqmyjShengNotNullOrHyqmyjYunNotNull(pageable);
-                        pageable = PageRequest.of(++pageNum -1, 15);
-                    }while (!findList.contains(hanwai));
-                    break;
-                default:
+        String sheetFlag = (String) request.getAttribute("sheetFlag");
+        if ( !"no".equals(sheetFlag)){
+            if (sheetSearch != null && sheetSearch){
+                if (id == null){
+                    response.setStatus(400);
+                    return "error/4xx";
+                }
+                // 需要查找的记录
+                Hanwai hanwai = hanwaiRepo.findById(id).orElse(null);
+                if (hanwai == null){
                     response.setStatus(404);
                     return "error/4xx";
+                }
 
+                switch (subcategory){
+                    case "语言自迩集" :
+                        pageNum = (hanwaiRepo.findZejPage(id) - 1) / 15 + 1;
+                        break;
+                    case "寻津录" :
+                        pageNum = (hanwaiRepo.findXjlPage(id) - 1) / 15 + 1;
+                        break;
+                    case "华英文义津逮" :
+                        pageNum = (hanwaiRepo.findHywyjdPage(id) - 1) / 15 + 1;
+                        break;
+                    case "唐话纂要" :
+                        pageNum = (hanwaiRepo.findThzyPage(id) - 1) / 15 + 1;
+                        break;
+                    case "四声通解" :
+                        pageNum = (hanwaiRepo.findSstjPage(id) - 1) / 15 + 1;
+                        break;
+                    case "华英启蒙谚解" :
+                        pageNum = (hanwaiRepo.findHyqmyjPage(id) - 1) / 15 + 1;
+                        break;
+                    default:
+                        response.setStatus(404);
+                        return "error/4xx";
+
+                }
+
+                request.setAttribute("sheetFlag", "no");
+
+                return "forward:/hanwai/" + abbr + "?pageNum=" + pageNum;
             }
-            pageNum -= 1;
-
-            model.addAttribute("subcategory", subcategory)
-                    .addAttribute("category", category)
-                    .addAttribute("results", findList)
-                    .addAttribute("pageNum", pageNum);
-            return "common/search";
         }
+
 
 
 
@@ -260,7 +247,6 @@ public class HanwaiController {
                 .addAttribute("templates",templates)
                 .addAttribute("subcategory", subcategory)
                 .addAttribute("category", category);
-        System.out.println(model.toString());
         return "common/results";
 
 
