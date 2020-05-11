@@ -44,7 +44,7 @@ public class HanwaiController {
     HanwaiRepo hanwaiRepo;
 
 
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(HanwaiController.class);
 
     @GetMapping("/{abbr}")
     public String searchPage(@PathVariable String abbr,

@@ -11,6 +11,18 @@ spring:
       connection-test-query: SELECT 1
   thymeleaf:
     cache: false
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 500
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+    hibernate:
+      use-new-id-generator-mappings: false
+
+
 logging:
   file:
     path: /var/log
