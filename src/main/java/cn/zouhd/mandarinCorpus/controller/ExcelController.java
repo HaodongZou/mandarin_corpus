@@ -1,8 +1,10 @@
 package cn.zouhd.mandarinCorpus.controller;
 
 import cn.zouhd.mandarinCorpus.entities.Hanwai;
+import cn.zouhd.mandarinCorpus.entities.Yunshu;
 import cn.zouhd.mandarinCorpus.listener.HanwaiExcelDataListener;
 import cn.zouhd.mandarinCorpus.repositories.HanwaiRepo;
+import cn.zouhd.mandarinCorpus.repositories.YunshuRepo;
 import com.alibaba.excel.EasyExcel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.List;
 
 
 /**
@@ -30,6 +34,9 @@ public class ExcelController {
 
     @Autowired
     HanwaiRepo hanwaiRepo;
+
+    @Autowired
+    YunshuRepo yunshuRepo;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -80,4 +87,38 @@ public class ExcelController {
         .addAttribute("success", true);
         return "dataOperation/excel";
     }
+
+    @GetMapping("/exportAll")
+    public String exportExcel(HttpServletResponse response, @RequestParam String category) throws IOException{
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        List data;
+        String fileName;
+        switch (category){
+            case "zhonggu":
+            case "yunshu":
+                LOGGER.info("准备导出官话韵书韵图。");
+                data = yunshuRepo.findAll();
+                fileName = URLEncoder.encode("官话韵书韵图", "UTF-8");
+                response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+                EasyExcel.write(response.getOutputStream(), Yunshu.class).sheet("模板").doWrite(data);
+                LOGGER.info("导出成功！");
+                break;
+            case "hanwai":
+                LOGGER.info("准备导出官话汉外译音。");
+                data = hanwaiRepo.findAll();
+                fileName = URLEncoder.encode("官话汉外译音", "UTF-8");
+                response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+                EasyExcel.write(response.getOutputStream(), Hanwai.class).sheet("模板").doWrite(data);
+                LOGGER.info("导出成功！");
+                break;
+            default:
+                response.setStatus(404);
+                return "error/4xx";
+        }
+
+        return "dataOperation/exportExcel";
+    }
+
+
 }
