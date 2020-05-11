@@ -13,32 +13,7 @@
 
 		<!-- Custom styles for this template -->
 		<link href="/asserts/css/dashboard.css" rel="stylesheet">
-		<style type="text/css">
-			/* Chart.js */
-			
-			@-webkit-keyframes chartjs-render-animation {
-				from {
-					opacity: 0.99
-				}
-				to {
-					opacity: 1
-				}
-			}
-			
-			@keyframes chartjs-render-animation {
-				from {
-					opacity: 0.99
-				}
-				to {
-					opacity: 1
-				}
-			}
-			
-			.chartjs-render-monitor {
-				-webkit-animation: chartjs-render-animation 0.001s;
-				animation: chartjs-render-animation 0.001s;
-			}
-		</style>
+
 	</head>
 
 	<body>
@@ -51,20 +26,18 @@
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<h2> 导出Excel表格 </h2>
 					<br>
-					<p><strong>点击按钮下载各数据库模板文件</strong></p>
-					<div class="custom-control-inline">
-						<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon05">下载模板</button>
-					</div>
-					<br>
-					<br>
+
 					<br>
 
 					<form action="#" th:action="@{/excel/import}" enctype="multipart/form-data" method="post">
 						<div class="input-group">
-							<div class="custom-file">
-								<input onchange="showFilename(this.files[0])" name="file" type="file" class="custom-file-input"
-									   id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-								<label id="filename_label" class="custom-file-label" for="inputGroupFile04">选择要下载的数据文件</label>
+							<div>
+								<select class="combobox custom-select" data-th-style="btn-primary" name="category">
+									<option>选择需要导出的版块</option>
+									<option value="zhonggu">中古近代音韵</option>
+									<option value="yunshu">官话韵书韵图</option>
+									<option value="hanwai">官话汉外译音</option>
+								</select>
 							</div>
 							<div class="input-group-append">
 								<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">下载</button>
@@ -84,6 +57,8 @@
 						<!--						<p th:text="${msg}" style="color: red;"></p>-->
 					</div>
 
+
+
 				</main>
 			</div>
 		</div>
@@ -92,17 +67,7 @@
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script type="text/javascript" src="/asserts/js/jquery-3.2.1.slim.min.js" ></script>
-		<script type="text/javascript" src="/asserts/js/popper.min.js" ></script>
 		<script type="text/javascript" src="/asserts/js/bootstrap.min.js" ></script>
-
-		<!-- Icons -->
-		<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
-		<script>
-			feather.replace()
-		</script>
-
-		<!-- Graphs -->
-		<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
 
 
 		<!-- 显示文件名 -->

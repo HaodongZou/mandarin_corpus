@@ -4,13 +4,9 @@ import cn.zouhd.mandarinCorpus.entities.Hanwai;
 import cn.zouhd.mandarinCorpus.repositories.HanwaiRepo;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.exception.ExcelAnalysisException;
-import com.alibaba.excel.exception.ExcelCommonException;
-import com.alibaba.excel.exception.ExcelDataConvertException;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +31,7 @@ public class HanwaiExcelDataListener extends AnalysisEventListener<Hanwai> {
     public void invoke(Hanwai hanwai, AnalysisContext analysisContext) {
 //        LOGGER.info(JSON.toJSONString(hanwai));
         if (!"{}".equals(JSON.toJSONString(hanwai))){
-            LOGGER.info("解析到一条数据:{}", JSON.toJSONString(hanwai));
+//            LOGGER.info("解析到一条数据:{}", JSON.toJSONString(hanwai));
             list.add(hanwai);
             if (list.size() >= BATCH_COUNT) {
                 saveData();

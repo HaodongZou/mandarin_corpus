@@ -13,32 +13,6 @@
 
 		<!-- Custom styles for this template -->
 		<link href="/asserts/css/dashboard.css" rel="stylesheet">
-		<style type="text/css">
-			/* Chart.js */
-			
-			@-webkit-keyframes chartjs-render-animation {
-				from {
-					opacity: 0.99
-				}
-				to {
-					opacity: 1
-				}
-			}
-			
-			@keyframes chartjs-render-animation {
-				from {
-					opacity: 0.99
-				}
-				to {
-					opacity: 1
-				}
-			}
-			
-			.chartjs-render-monitor {
-				-webkit-animation: chartjs-render-animation 0.001s;
-				animation: chartjs-render-animation 0.001s;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -52,9 +26,24 @@
 					<h2> 导入Excel表格 </h2>
 					<br>
 					<p><strong>请注意，上传的文件支持.xls和.xlsx两种格式。</strong>建议下载模板文件后，将数据复制入模板文件中再进行上传。</p>
-
+					<br>
+					<p><strong>点击按钮下载各数据库模板文件</strong></p>
+					<div class="custom-control-inline">
+						<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon05">下载模板</button>
+					</div>
+					<br><br>
 					<form action="#" th:action="@{/excel/import}" enctype="multipart/form-data" method="post">
 						<div class="input-group">
+							<div>
+								<select class="combobox custom-select" data-th-style="btn-primary" name="category">
+									<option>选择需要导入的版块</option>
+									<option value="zhonggu">中古近代音韵</option>
+									<option value="yunshu">官话韵书韵图</option>
+									<option value="hanwai">官话汉外译音</option>
+								</select>
+							</div>
+
+
 							<div class="custom-file">
 								<input onchange="showFilename(this.files[0])" name="file" type="file" class="custom-file-input"
 									   id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
@@ -78,6 +67,16 @@
 						<!--						<p th:text="${msg}" style="color: red;"></p>-->
 					</div>
 
+					<br>
+					<br>
+					<br>
+					<h5 class="font-weight-bold">注意：</h5>
+					<br>
+					<p> 1. 只能导入Excel格式文件（后缀名为.xls或.xlsx）。</p>
+					<p> 2. 请保持Excel第一行表头与模板中的表头<strong>名称一致</strong>（顺序可颠倒）。</p>
+					<p> 3. 如果Excel文件中存在与数据库中相同<strong>编号</strong>的数据，将会更新这条数据。</p>
+					<p> 4. 文件导入过程可能持续几分钟，期间请耐心等待，不要进行其他操作。</p>
+
 				</main>
 			</div>
 		</div>
@@ -86,24 +85,17 @@
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script type="text/javascript" src="/asserts/js/jquery-3.2.1.slim.min.js" ></script>
-		<script type="text/javascript" src="/asserts/js/popper.min.js" ></script>
 		<script type="text/javascript" src="/asserts/js/bootstrap.min.js" ></script>
-
-		<!-- Icons -->
-		<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
-		<script>
-			feather.replace()
-		</script>
-
-		<!-- Graphs -->
-		<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
-
 
 		<!-- 显示文件名 -->
 		<script>
 			function showFilename(file){
 				$("#filename_label").html(file.name);
 			}
+
+			$(document).ready(function(){
+				$('.combobox').combobox();
+			});
 		</script>
 	</body>
 

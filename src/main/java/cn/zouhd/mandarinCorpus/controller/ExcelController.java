@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
@@ -53,19 +54,28 @@ public class ExcelController {
      * @throws IOException the io exception
      */
     @PostMapping("/import")
-    public String importExcel(@RequestParam MultipartFile file, Model model){
+    public String importExcel(@RequestParam MultipartFile file, Model model, @RequestParam String category, HttpServletResponse response){
         String fileName = file.getOriginalFilename();
-        LOGGER.info("开始。。。。。。。");
 
         try {
-            EasyExcel.read(file.getInputStream(), Hanwai.class, new HanwaiExcelDataListener(hanwaiRepo)).sheet().doRead();
+            switch (category){
+                case "zhonggu":
+                case "yunshu":
+                case "hanwai":
+                    LOGGER.info("开始导入Excel至{}：{}",category, fileName);
+                    EasyExcel.read(file.getInputStream(), Hanwai.class, new HanwaiExcelDataListener(hanwaiRepo)).sheet().doRead();
+                    break;
+                default:
+                    response.setStatus(400);
+                    return "error/4xx";
+            }
         } catch (IOException e) {
             e.printStackTrace();
             model.addAttribute("msg",e.getMessage() + ":" + fileName)
             .addAttribute("success", false);
             return "dataOperation/excel";
         }
-        LOGGER.info("结束。。。。。。。");
+        LOGGER.info("结束导入");
         model.addAttribute("msg", "上传成功：" + fileName)
         .addAttribute("success", true);
         return "dataOperation/excel";
