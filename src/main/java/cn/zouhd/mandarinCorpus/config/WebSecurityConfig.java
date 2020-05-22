@@ -1,12 +1,16 @@
 package cn.zouhd.mandarinCorpus.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -22,7 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/asserts/**", "/login").permitAll()
-                    .antMatchers("/**").hasAnyAuthority("USER", "ADMIN")
+                    .antMatchers("/excel/**","/amend").hasAnyAuthority("ADMIN","RESEARCHER")
+                    .antMatchers("/**").hasAnyAuthority("USER","RESEARCHER", "ADMIN")
                     .and()
                 .formLogin()
                     .loginPage("/login")
@@ -35,21 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService())
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
-//    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(User.withUsername("zhd").password("123456").roles("USER").build());
-//        manager.createUser(User.withUsername("邹昊东").password("123456").roles("USER").build());
-//        return manager;
-//    }
 }

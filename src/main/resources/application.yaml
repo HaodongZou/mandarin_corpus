@@ -5,10 +5,17 @@ spring:
     url: jdbc:mysql://182.92.166.86:3306/corpus
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
+#     池中维护的最小空闲连接数
       minimum-idle: 5
+#     池中最大连接数
       maximum-pool-size: 20
-      max-lifetime: 30000
+#     池中连接最长的生命周期
+      max-lifetime: 180000
+#     连接测试语句
       connection-test-query: SELECT 1
+#     连接允许在池中闲置的最长时间
+      idle-timeout: 60000
+    type: com.zaxxer.hikari.HikariDataSource
   thymeleaf:
     cache: false
   jpa:

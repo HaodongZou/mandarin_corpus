@@ -29,9 +29,7 @@ public class HanwaiExcelDataListener extends AnalysisEventListener<Hanwai> {
 
     @Override
     public void invoke(Hanwai hanwai, AnalysisContext analysisContext) {
-//        LOGGER.info(JSON.toJSONString(hanwai));
         if (!"{}".equals(JSON.toJSONString(hanwai))){
-//            LOGGER.info("解析到一条数据:{}", JSON.toJSONString(hanwai));
             list.add(hanwai);
             if (list.size() >= BATCH_COUNT) {
                 saveData();
