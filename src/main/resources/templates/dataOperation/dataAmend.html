@@ -140,7 +140,9 @@
 						success: function ( data ) {
 							if (data.length > 0){
 								for (var i=0; i < data.length; i++){
-									content += "<button type='button' class='list-group-item list-group-item-action' onclick='clickFn(this)'>" + data[i].word + "</button>";
+									content += "<button type='button' class='list-group-item" +
+											" list-group-item-action' onclick='clickFn(this)'>"
+											+ data[i].word + "</button>";
 								}
 								$('#showResults').html(content).css("display", "block");
 								dataWord = data[0]

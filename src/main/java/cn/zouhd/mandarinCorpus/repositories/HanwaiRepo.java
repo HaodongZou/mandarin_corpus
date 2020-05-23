@@ -47,5 +47,17 @@ public interface HanwaiRepo extends JpaRepository<Hanwai, Integer> {
     @Query(nativeQuery=true, value="SELECT cnt FROM ( SELECT id, count(hyqmyj_sheng OR hyqmyj_yun) over (ORDER BY id) cnt FROM corpus_hanwai) x WHERE id = ?1")
     Integer findHyqmyjPage(Integer id);
 
+    Integer countByZejShengNotNullOrZejYinNotNullOrZejYunNotNull();
+
+    Integer countByXjlShengNotNullOrXjlYinNotNullOrXjlYunNotNull();
+
+    Integer countByHyqmyjShengNotNullOrHyqmyjYunNotNull();
+
+    Integer countByHywyjdShengNotNullOrHywyjdYinNotNullOrHywyjdYunNotNull();
+
+    Integer countBySstjJinsuyinNotNullOrSstjShengdiaoNotNullOrSstjBeizhuNotNull();
+
+    Integer countByThzyBiaoyinNotNullOrThzyNiyinNotNull();
+
 
 }

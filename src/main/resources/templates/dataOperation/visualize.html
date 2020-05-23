@@ -27,6 +27,22 @@
 
 			<br><br>
 
+			<div class="input-group">
+				<div>
+					<select class="combobox custom-select" data-th-style="btn-primary" name="category" id="mySelect" onchange='selectChange()'>
+						<option value="1">选择需要展示的版块</option>
+						<option value="zhonggu">中古近代音韵</option>
+						<option value="yunshu">官话韵书韵图</option>
+						<option value="hanwai">官话汉外译音</option>
+					</select>
+				</div>
+			</div>
+
+			<br><br><br>
+			<div id="all" style="width: 800px; height: 500px;"></div>
+			<div id="hanwai1" style="width: 800px; height: 500px; display: none"></div>
+			<div id="hanwai2" style="width: 500px; height: 300px; display: none"></div>
+
 
 
 		</main>
@@ -40,63 +56,100 @@
 <script type="text/javascript" src="../../asserts/js/popper.min.js"></script>
 <script type="text/javascript" src="../../asserts/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../../asserts/js/jquery-ui-1.12.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.7.0/echarts.min.js"></script>
+<script type="text/javascript">
+	// 基于准备好的dom，初始化echarts实例
+	var myChart = echarts.init(document.getElementById('all'));
+	// 开启 loading 效果
+	myChart.showLoading();
+	// 指定图表的配置项和数据
+	var option = {
+		title: {
+			text: '各板块数据量'
+		},
+		tooltip: {},
+		legend: {
+			data:['数据量']
+		},
+		xAxis: {
+			data: ["中古近代","韵书韵图","汉外译音","押韵资料","方志资料","基础方音"]
+		},
+		yAxis: {},
+		series: [{
+			name: '数据量',
+			type: 'bar',
+			data: [3810, 2479, 2967, 1983, 201, 100]
+		}]
+	};
+
+	myChart.hideLoading();  // 隐藏 loading 效果
+	// 使用刚指定的配置项和数据显示图表。
+	myChart.setOption(option);
 
 
-<script>
-	var dataWord;
-	var inputWord = $('#word');
-	inputWord.autocomplete({
-		minChars: 1,
-		source: function (request, response) {
-			var content = "";
-			$.ajax({
-				url: "dataAmend/search",
-				data: {
-					'word': request.term
-				},
-				success: function ( data ) {
-					if (data.length > 0){
-						for (var i=0; i < data.length; i++){
-							content += "<button type='button' class='list-group-item list-group-item-action' onclick='clickFn(this)'>" + data[i].word + "</button>";
+</script>
+
+<script th:inline="javascript">
+	selectChange = function () {
+		console.log("改变事件发生。。。");
+		$('#all').css("display", "none");
+		$('#hanwai1').css("display", "block");
+		$('#hanwai2').css("display", "block");
+		var myChart1 = echarts.init(document.getElementById('hanwai1'));
+		var myChart2 = echarts.init(document.getElementById('hanwai2'));
+		myChart1.showLoading();
+		myChart2.showLoading();
+
+		myChart1.hideLoading();
+		myChart1.setOption({
+			title: {
+				text: '官话韵书韵图子版块数据占比',
+				x: 'center',
+				y: 'top',
+			},
+			legend: {
+				// orient 设置布局方式，默认水平布局，可选值：'horizontal'（水平） ¦ 'vertical'（垂直）
+				orient: 'vertical',
+				// x 设置水平安放位置，默认全图居中，可选值：'center' ¦ 'left' ¦ 'right' ¦ {number}（x坐标，单位px）
+				x: 'left',
+				// y 设置垂直安放位置，默认全图顶端，可选值：'top' ¦ 'bottom' ¦ 'center' ¦ {number}（y坐标，单位px）
+				y: 'center',
+				itemWidth: 24,   // 设置图例图形的宽
+				itemHeight: 18,  // 设置图例图形的高
+
+				// itemGap设置各个item之间的间隔，单位px，默认为10，横向布局时为水平间隔，纵向布局时为纵向间隔
+				itemGap: 30,
+				data: ['语言自迩集','尋津彔','华英音(华英文义津逮)','唐話類纂','四聲通解','華英啟蒙諺解']
+			},
+
+			series: [{
+				name: '占比',
+				type: 'pie',
+				radius: '60%',
+				label: {
+					normal: {
+						show: true,
+						formatter: '{d}%',//模板变量有 {a}、{b}、{c}、{d}，分别表示系列名，数据名，数据值，百分比。{d}数据会根据value值计算百分比
+
+						textStyle: {
+							align: 'center',
+							baseline: 'middle',
+							fontFamily: '微软雅黑',
+							fontSize: 15,
+							fontWeight: 'bolder'
 						}
-						$('#showResults').html(content).css("display", "block");
-						dataWord = data[0]
 					}
-
-				}
-
-			})
-
-		}
-	})
-	function clickFn(object) {
-		inputWord.val($(object).text())
-		$('#info').css("display", "block")
-		$('#jyzh_sheng').val(dataWord.jyzhSheng);
-		$('#jyzh_diao').val(dataWord.jyzhDiao);
-		$('#jyzh_yun').val(dataWord.jyzhYun);
-		$('#gycyzh_sheng').val(dataWord.gycyzhSheng);
-		$('#gycyzh_yin').val(dataWord.gycyzhYin);
-		$('#gycyzh_yun').val(dataWord.gycyzhYun);
-		$('#showResults').css("display", "none");
-	}
-	// function blurFn() {
-	// 	$('#showResults').css("display", "none");
-	// }
-	//获取当前URI
-	function GetUrlRelativePath()
-	{
-		var url = document.location.toString();
-		var arrUrl = url.split("//");
-
-		var start = arrUrl[1].indexOf("/");
-		//stop省略，截取从start开始到结尾的所有字符
-		var relUrl = arrUrl[1].substring(start);
-
-		if(relUrl.indexOf("?") !== -1){
-			relUrl = relUrl.split("?")[0];
-		}
-		return relUrl;
+				},
+				data: [
+					{value: [[${zejNum}]], name: '语言自迩集'},
+					{value: [[${xjlNum}]], name: '尋津彔'},
+					{value: [[${hywyjdNum}]], name: '华英音(华英文义津逮)'},
+					{value: [[${thzyNum}]], name: '唐話類纂'},
+					{value: [[${sstjNum}]], name: '四聲通解'},
+					{value: [[${hyqmyjNum}]], name: '華英啟蒙諺解'}
+				]
+			}]
+		})
 	}
 </script>
 
