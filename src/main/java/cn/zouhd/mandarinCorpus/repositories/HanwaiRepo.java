@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface HanwaiRepo extends JpaRepository<Hanwai, Integer> {
 
+    List<Hanwai> findByWordLike(String word);
+
     List<Hanwai> findByZejShengNotNullOrZejYinNotNullOrZejYunNotNull (Pageable pageable);
 
     List<Hanwai> findByXjlShengNotNullOrXjlYinNotNullOrXjlYunNotNull (Pageable pageable);

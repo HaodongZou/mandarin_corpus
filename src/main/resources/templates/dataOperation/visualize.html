@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052) -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>数据可视化</title>
+	<!-- Bootstrap core CSS -->
+	<link href="/asserts/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="/asserts/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+<div th:replace="common/common :: navbar"></div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div th:replace="common/common :: sidebar"></div>
+
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+			<h2> 数据可视化 </h2>
+
+			<br><br>
+
+
+
+		</main>
+	</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="../../asserts/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../../asserts/js/popper.min.js"></script>
+<script type="text/javascript" src="../../asserts/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../asserts/js/jquery-ui-1.12.1.min.js"></script>
+
+
+<script>
+	var dataWord;
+	var inputWord = $('#word');
+	inputWord.autocomplete({
+		minChars: 1,
+		source: function (request, response) {
+			var content = "";
+			$.ajax({
+				url: "dataAmend/search",
+				data: {
+					'word': request.term
+				},
+				success: function ( data ) {
+					if (data.length > 0){
+						for (var i=0; i < data.length; i++){
+							content += "<button type='button' class='list-group-item list-group-item-action' onclick='clickFn(this)'>" + data[i].word + "</button>";
+						}
+						$('#showResults').html(content).css("display", "block");
+						dataWord = data[0]
+					}
+
+				}
+
+			})
+
+		}
+	})
+	function clickFn(object) {
+		inputWord.val($(object).text())
+		$('#info').css("display", "block")
+		$('#jyzh_sheng').val(dataWord.jyzhSheng);
+		$('#jyzh_diao').val(dataWord.jyzhDiao);
+		$('#jyzh_yun').val(dataWord.jyzhYun);
+		$('#gycyzh_sheng').val(dataWord.gycyzhSheng);
+		$('#gycyzh_yin').val(dataWord.gycyzhYin);
+		$('#gycyzh_yun').val(dataWord.gycyzhYun);
+		$('#showResults').css("display", "none");
+	}
+	// function blurFn() {
+	// 	$('#showResults').css("display", "none");
+	// }
+	//获取当前URI
+	function GetUrlRelativePath()
+	{
+		var url = document.location.toString();
+		var arrUrl = url.split("//");
+
+		var start = arrUrl[1].indexOf("/");
+		//stop省略，截取从start开始到结尾的所有字符
+		var relUrl = arrUrl[1].substring(start);
+
+		if(relUrl.indexOf("?") !== -1){
+			relUrl = relUrl.split("?")[0];
+		}
+		return relUrl;
+	}
+</script>
+
+</body>
+
+</html>

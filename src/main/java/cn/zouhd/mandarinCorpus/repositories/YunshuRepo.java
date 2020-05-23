@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface YunshuRepo extends JpaRepository<Yunshu, Integer> {
 
+    List<Yunshu> findByWordLike(String word);
+
     List<Yunshu> findByGycyzhShengNotNullOrGycyzhYunNotNullOrGycyzhYinNotNull (Pageable pageable);
 
     List<Yunshu> findByJyzhDiaoNotNullOrJyzhShengNotNullOrJyzhYunNotNull (Pageable pageable);

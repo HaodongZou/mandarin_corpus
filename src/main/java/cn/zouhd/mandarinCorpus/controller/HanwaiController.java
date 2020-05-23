@@ -59,6 +59,7 @@ public class HanwaiController {
             response.setStatus(400);
             return "error/4xx";
         }
+        model.addAttribute("activeUrl", "hanwai");
 
         // 确定路径对应的目录以及父目录
         List<Subcategory> byNameLike = subcategoryRepo.findByAbbr(abbr);
